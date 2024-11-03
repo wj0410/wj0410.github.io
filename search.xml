@@ -206,7 +206,8 @@
 <div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; hexo g</span><br><span class="line">&gt; hexo d</span><br></pre></td></tr></table></figure></div>
 
 <p>部署成功后，我们直接访问<code>https://blog.python-brief.com/</code>（我自定义的域名）来查看我们的博客啦～</p>
-<p>参考文献：<a class="link"   href="https://xie.infoq.cn/article/90dc08c57463df3a1b2ad960f" >https://xie.infoq.cn/article/90dc08c57463df3a1b2ad960f <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h4 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h4><p><a class="link"   href="https://xie.infoq.cn/article/90dc08c57463df3a1b2ad960f" >https://xie.infoq.cn/article/90dc08c57463df3a1b2ad960f <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   href="https://blog.csdn.net/m0_73651896/article/details/140237281" >https://blog.csdn.net/m0_73651896/article/details/140237281 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 ]]></content>
       <categories>
         <category>其他</category>
