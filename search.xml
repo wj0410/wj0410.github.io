@@ -13,6 +13,210 @@
       </tags>
   </entry>
   <entry>
+    <title>PicGo使用GitHub图床</title>
+    <url>/2024/11/03/PicGo%E4%BD%BF%E7%94%A8GitHub%E5%9B%BE%E5%BA%8A/</url>
+    <content><![CDATA[<p>文档地址：<a class="link"   href="https://picgo.github.io/PicGo-Doc/zh/guide/config.html#github%E5%9B%BE%E5%BA%8A" >PicGo <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
+      <tags>
+        <tag>其他</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>利用Hexo搭建个人博客</title>
+    <url>/2024/11/03/%E5%88%A9%E7%94%A8Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<h4 id="预备工作"><a href="#预备工作" class="headerlink" title="预备工作"></a>预备工作</h4><p>首先安装 Node.js、npm、git工具。</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; node -v</span><br><span class="line">v12.22.9</span><br><span class="line">&gt; npm -v</span><br><span class="line">8.5.1</span><br><span class="line">&gt; git version</span><br><span class="line">git version 2.34.1</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="安装-Hexo"><a href="#安装-Hexo" class="headerlink" title="安装 Hexo"></a>安装 Hexo</h4><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br><span class="line"></span><br><span class="line">&gt; hexo -v</span><br><span class="line">hexo-cli: 4.3.2</span><br><span class="line">os: darwin 22.6.0 13.6.7</span><br><span class="line"></span><br><span class="line">node: 20.8.1</span><br><span class="line">acorn: 8.10.0</span><br><span class="line">ada: 2.6.0</span><br><span class="line">ares: 1.19.1</span><br><span class="line"><span class="built_in">base64</span>: 0.5.0</span><br><span class="line">brotli: 1.0.9</span><br><span class="line">cjs_module_lexer: 1.2.2</span><br><span class="line">cldr: 43.1</span><br><span class="line">icu: 73.2</span><br><span class="line">llhttp: 8.1.1</span><br><span class="line">modules: 115</span><br><span class="line">napi: 9</span><br><span class="line">nghttp2: 1.57.0</span><br><span class="line">nghttp3: 0.7.0</span><br><span class="line">ngtcp2: 0.8.1</span><br><span class="line">openssl: 3.0.10+quic</span><br><span class="line">simdutf: 3.2.17</span><br><span class="line">tz: 2023c</span><br><span class="line">undici: 5.26.3</span><br><span class="line">unicode: 15.0</span><br><span class="line">uv: 1.46.0</span><br><span class="line">uvwasi: 0.0.18</span><br><span class="line">v8: 11.3.244.8-node.16</span><br><span class="line">zlib: 1.2.13.1-motley</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="博客搭建"><a href="#博客搭建" class="headerlink" title="博客搭建"></a>博客搭建</h4><p>首先创建博客的根目录文件夹</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; <span class="built_in">mkdir</span> MyBlob</span><br><span class="line">&gt; <span class="built_in">cd</span> MyBlob</span><br></pre></td></tr></table></figure></div>
+
+<p>之后，就可以初始化这个文件夹了，初始化的目的是，它会创建一个 helloword.md 文件，然后利用 node.js 等将这个 markdown 文件渲染成一个 html 文件，然后在本地开启一个网络服务器以供前端访问</p>
+<p>由于网络问题（npm 的服务器位于国外下载慢）可以使用 cnpm（淘宝团队做的国内镜像）的获取镜像或者直接修改 npm 的资源获取地址为国内的。</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 安装cnmp</span></span><br><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br><span class="line"></span><br><span class="line"><span class="comment"># 直接修改npm资源获取地址（推荐）</span></span><br><span class="line">npm config <span class="built_in">set</span> registry http://registry.npm.taobao.org</span><br></pre></td></tr></table></figure></div>
+
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; hexo init</span><br><span class="line">INFO  Cloning hexo-starter https://github.com/hexojs/hexo-starter.git</span><br><span class="line">INFO  Install dependencies</span><br><span class="line">INFO  Start blogging with Hexo!</span><br></pre></td></tr></table></figure></div>
+
+<p>成功初始化后，会在当前文件夹下生成一些文件，目录结构如下</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/wj0410/pic-bed/master/202411032253551.png"
+                     
+                ></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">├── _config.landscape.yml：主题配置文件，如果</span><br><span class="line"></span><br><span class="line">├── _config.yml：站点配置文件，对站点进行配置。</span><br><span class="line"></span><br><span class="line">├── node_modules：用来存储已安装的各类依赖包。</span><br><span class="line"></span><br><span class="line">├── package-lock.json：包版本依赖锁文件。</span><br><span class="line"></span><br><span class="line">├── package.json：应用数据，Hexo的版本以及相关依赖包的版本等。</span><br><span class="line"></span><br><span class="line">├── scaffolds：博客模版文件夹，包含page.md，post.md，draft.md三种。</span><br><span class="line"></span><br><span class="line">├── source：资源文件夹，存放静态资源如博客md文件、图片等。</span><br><span class="line"></span><br><span class="line">└── themes：主题文件夹，Hexo通过将网站内容与主题组合来生成静态网站。</span><br></pre></td></tr></table></figure></div>
+
+<p>初始化项目后，我们只需在根目录下本地执行下面命令即可在本地进行预览</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; hexo s</span><br><span class="line">INFO  Validating config</span><br><span class="line">INFO  Start processing</span><br><span class="line">INFO  Hexo is running at http://localhost:4000/ . Press Ctrl+C to stop.</span><br></pre></td></tr></table></figure></div>
+
+<p>然后我们访问<code>http://localhost:4000/</code>即可查看网站啦</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/wj0410/pic-bed/master/202411032257329.png"
+                     
+                ></p>
+<h4 id="Hexo基本命令介绍"><a href="#Hexo基本命令介绍" class="headerlink" title="Hexo基本命令介绍"></a>Hexo基本命令介绍</h4><ul>
+<li><p><strong>本地启动项目，s 表示 server</strong></p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; hexo s</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/wj0410/pic-bed/master/202411032301146.png"
+                     
+                ></p>
+</li>
+<li><p><strong>创建一个新的文章</strong></p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; hexo new [layout] &lt;title&gt;</span><br><span class="line">如：hexo new <span class="string">&quot;我的第一篇博客 Hexo Hello!&quot;</span></span><br></pre></td></tr></table></figure></div>
+
+<p>layout 表示文章布局，可选（post page draft），默认使用 <code>_config.yml</code>中的 default_layout 参数代替（post）。</p>
+<p>title 表示文章标题，如果标题包含空格的话，请使用引号括起来。</p>
+</li>
+<li><p><strong>Front-matter</strong></p>
+<p><a class="link"   href="https://hexo.io/zh-cn/docs/front-matter" >参看官方文档 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">categories:</span><br><span class="line">  - Sports</span><br><span class="line">  - Baseball</span><br><span class="line">tags:</span><br><span class="line">  - Injury</span><br><span class="line">  - Fight</span><br><span class="line">  - Shocking</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p><strong>clean 清除缓存文件 (db.json) 和已生成的静态文件 (public)</strong></p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; hexo clean</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p><strong>生成静态文件，g 表示 generate</strong></p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; hexo g</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/wj0410/pic-bed/master/202411032304909.png"
+                     
+                ></p>
+</li>
+<li><p><strong>部署Hexo网站，d 表示 deploy</strong></p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; hexo d</span><br></pre></td></tr></table></figure></div>
+
+<p>更多相关指令可以前往官网查看：<a class="link"   href="https://hexo.io/zh-cn/docs/commands" >https://hexo.io/zh-cn/docs/commands <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+</li>
+</ul>
+<h4 id="Hexo基本配置修改"><a href="#Hexo基本配置修改" class="headerlink" title="Hexo基本配置修改"></a>Hexo基本配置修改</h4><p><strong>【必改部分】</strong> 站点的基本设置，首页标题、子标题、简介、关键词（英文,隔开）、作者、语言和时区，都需要修改，这样才算自己的网站嘛。</p>
+<p>打开<code>_config.yml</code>，修改以下部分</p>
+<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Site</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">Wangjie&#x27;s</span> <span class="string">Blog</span></span><br><span class="line"><span class="attr">subtitle:</span> <span class="string">&#x27;知识总结&#x27;</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">&#x27;Hexo+Github&#x27;</span></span><br><span class="line"><span class="attr">keywords:</span> <span class="string">java</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">Wangjie</span></span><br><span class="line"><span class="attr">language:</span> <span class="string">zh-CN</span></span><br><span class="line"><span class="attr">timezone:</span> <span class="string">&#x27;Asia/Shanghai&#x27;</span></span><br></pre></td></tr></table></figure></div>
+
+<p>重启下 Hexo 服务，我们刷新页面，就会发现上面的修改生效啦～如果没有生效，你可以先运行下<code>hexo clean</code>先清除缓存，然后再执行<code>hexo s</code>启动服务器。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/wj0410/pic-bed/master/202411032350227.png"
+                     
+                ></p>
+<p><strong>【选改部分】</strong> </p>
+<p>访问路径相关设置</p>
+<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># URL</span></span><br><span class="line"><span class="comment">## Set your site url here. For example, if you use GitHub Page, set url as &#x27;https://username.github.io/project&#x27;</span></span><br><span class="line"><span class="attr">url:</span> <span class="string">http://example.com</span></span><br><span class="line"><span class="attr">permalink:</span> <span class="string">:year/:month/:day/:title/</span></span><br><span class="line"><span class="attr">permalink_defaults:</span></span><br><span class="line"><span class="attr">pretty_urls:</span></span><br><span class="line">  <span class="attr">trailing_index:</span> <span class="literal">true</span> <span class="comment"># Set to false to remove trailing &#x27;index.html&#x27; from permalinks</span></span><br><span class="line">  <span class="attr">trailing_html:</span> <span class="literal">true</span> <span class="comment"># Set to false to remove trailing &#x27;.html&#x27; from permalinks</span></span><br></pre></td></tr></table></figure></div>
+
+<p>原主题太简陋了，我从官网主题地址：<a class="link"   href="https://xie.infoq.cn/link?target=https://hexo.io/themes/" >https://hexo.io/themes/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>中下载了<code>Redefine</code>主题，所以我们需要将配置中的主题改为<code>redefine</code>，大家也可以选择其他主题。</p>
+<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Extensions</span></span><br><span class="line"><span class="comment">## Plugins: https://hexo.io/plugins/</span></span><br><span class="line"><span class="comment">## Themes: https://hexo.io/themes/</span></span><br><span class="line"><span class="attr">theme:</span> <span class="string">redefine</span></span><br></pre></td></tr></table></figure></div>
+
+<h4 id="Redefine主题使用文档"><a href="#Redefine主题使用文档" class="headerlink" title="Redefine主题使用文档"></a><a class="link"   href="https://redefine-docs.ohevan.com/getting-started" >Redefine主题使用文档 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></h4><blockquote>
+<p>[!NOTE]</p>
+<p>注意，该主题Hexo 版本需要大于 5.0.0</p>
+<p><strong>Hexo版本升级</strong></p>
+<p>Hexo版本升级可以通过npm实现，相关命令如下：<br>先全局升级<code>hexo-cli</code>：-g表示全局升级。<code>hexo</code>本身是一个静态博客生成工具，具备编译Markdown、拼接主题模板、生成 HTML、上传 Git 等基本功能。<code>hexo-cli</code>能够将这些功能封装为命令，提供给用户通过<code>hexo server / hexo deploy</code>等命令调用的模块。<code>CLI = Command Line Interface</code>命令行界面。</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; npm i hexo-cli -g</span><br></pre></td></tr></table></figure></div>
+
+<p>然后直接输入：(其实这个命令应该不正确)，输入之后发现出现了一系列的warn。</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; npm update</span><br></pre></td></tr></table></figure></div>
+
+<p>再输入<code>hexo vesion</code>查看当前版本，发现版本已经更新成功了。</p>
+</blockquote>
+<h4 id="将-Hexo-博客部署到-GitHub"><a href="#将-Hexo-博客部署到-GitHub" class="headerlink" title="将 Hexo 博客部署到 GitHub"></a>将 Hexo 博客部署到 GitHub</h4><p>首先我们先需要新建在 GitHub 上新建一个项目：<a class="link"   href="https://xie.infoq.cn/link?target=https://github.com/new" >https://github.com/new <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，项目名称格式需要注意，必须是<code>用户名.github.io</code>，如下图所示：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/wj0410/pic-bed/master/202411040157011.png"
+                     
+                ></p>
+<p>同时我们需要配置下 SSH 密钥，具体配置方法可以查看：<a class="link"   href="https://xie.infoq.cn/link?target=https://mp.weixin.qq.com/s/kRjdSH-o8xULo8iiUyyhgw" >mac 如何快速生成SSH key，配置github SSH公钥连接(解决git push 413问题 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>接着我们要修改下配置文件<code>_config.yml</code>，下滑到最后，将部署信息改为：</p>
+<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/one-command-deployment</span></span><br><span class="line"><span class="attr">deploy:</span>  </span><br><span class="line">	<span class="attr">type:</span> <span class="string">git</span>  </span><br><span class="line">	<span class="attr">repo:</span> <span class="string">git@github.com:你的用户名/你的用户名.github.io.git</span>  </span><br><span class="line">	<span class="attr">branch:</span> <span class="string">main</span></span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/wj0410/pic-bed/master/202411040200907.png"
+                     
+                ></p>
+<p>部署到 GitHub，需要安装相关工具 hexo-deployer-git。</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure></div>
+
+<p>接下来直接输入指令配置就行了，<code>hexo clean</code>清除缓存数据，<code>hexo g</code>生成相关静态文件。</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; hexo clean</span><br><span class="line">&gt; hexo g</span><br></pre></td></tr></table></figure></div>
+
+<p>如果继续输入<code>hexo d</code>进行部署的时候，可能会报错，<code>Deployer not found: git</code> ，这个时候不要慌，这是因为在本地 Hexo 项目目录还没有初始化 git 造成的，我们运行下面命令进行初始化即可。如果没有报错则忽视。</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; git init</span><br></pre></td></tr></table></figure></div>
+
+<p>我们再次输入<code>hexo d</code>进行部署即可，可能会要求输入 GitHub 账号和密码（配置了 ssh 公钥就不需要了，上面有说如何配置），直接输入即可，上传完成后，再刷新 GitHub 页面会发现多了一些文件，原来的 readme 也不见了，这是因为 Hexo 每次部署都会将<code>hexo g</code>生成的静态文件（在 blog&#x2F;public 目录下）上传到 GitHub，<strong>并覆盖原先所有的内容</strong>。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/wj0410/pic-bed/master/202411040209477.png"
+                     
+                ></p>
+<p>这个时候，我们在浏览器内访问</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://&lt;你的用户名&gt;.github.io/</span><br><span class="line"># 如：https://wj0410.github.io/</span><br></pre></td></tr></table></figure></div>
+
+<p>即可访问我们的博客首页啦，点击博客也可以进入对应的博客页面。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/wj0410/pic-bed/master/202411040212042.png"
+                     
+                ></p>
+<p>通过上面，我们已经得到了一个在线的、可以随时随地访问的个人博客，整个操作过程还是很简单的，麻烦的就是上传更新文章和部署项目了，每次部署都需要输入账号密码，另外由于 GitHub 服务器在国外，国内访问速度也很堪忧，不用担心，这个解决还比较简单，我们可以同时将项目部署到国内码云：<a class="link"   href="https://xie.infoq.cn/link?target=https://gitee.com/" >https://gitee.com/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>或者 Coding：<a class="link"   href="https://xie.infoq.cn/link?target=https://coding.net/" >https://coding.net/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，整个过程和将项目部署到 GitHub 差不多。</p>
+<h4 id="设置应用自己的域名"><a href="#设置应用自己的域名" class="headerlink" title="设置应用自己的域名"></a>设置应用自己的域名</h4><p>如果你有域名的话，还可以设置专属域名，比如我之前在<a class="link"   href="https://xie.infoq.cn/link?target=https://www.aliyun.com/minisite/goods?taskPkg=1111ydsrwb&pkgSid=588&recordId=952736&userCode=g49jjzzx" >阿里云买的域名点击查看 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，当然大家也可以买<a class="link"   href="https://xie.infoq.cn/link?target=https://curl.qcloud.com/jaJqULOo" >腾讯云的点击查看 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，国内比较靠谱的两个云服务器和域名服务公司了～</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/wj0410/pic-bed/master/202411040215023.png"
+                     
+                ></p>
+<p>首先我们需要在阿里云域名管理后台，进行域名解析，我们直接从我们自己的域名解析到博客的 github 地址，谈及一条 CNAME 记录即可，主机记录就是我们后面通过什么链接访问，记录值就是 github 访问地址了。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/wj0410/pic-bed/master/202411040216584.png"
+                     
+                ></p>
+<p>然后我们需要到 GitHub 对应项目中设置项目的域名，进入项目-&gt; Settings -&gt; Pages -&gt; <code>Custom domain</code>，将我们设置的 CNAME 域名写入即可（注意是在这个项目的设置里，并非 GitHub 的设置）。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/wj0410/pic-bed/master/202411040218672.png"
+                     
+                ></p>
+<p>最后我们还需要在本地项目中的 blog&#x2F;source 文件夹下新建一个<code>CNAME</code>文件，编辑写入我们的域名，就是刚刚填入 GitHub 的，这样后面 GitHub 就能映射到我们的域名啦。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/wj0410/pic-bed/master/202411040219142.png"
+                     
+                ></p>
+<p>再执行下面命令，重新更新和部署项目</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; hexo g</span><br><span class="line">&gt; hexo d</span><br></pre></td></tr></table></figure></div>
+
+<p>部署成功后，我们直接访问<code>https://blog.python-brief.com/</code>（我自定义的域名）来查看我们的博客啦～</p>
+<h4 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h4><p><a class="link"   href="https://xie.infoq.cn/article/90dc08c57463df3a1b2ad960f" >https://xie.infoq.cn/article/90dc08c57463df3a1b2ad960f <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   href="https://blog.csdn.net/m0_73651896/article/details/140237281" >https://blog.csdn.net/m0_73651896/article/details/140237281 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
+      <tags>
+        <tag>其他</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Mysql学习笔记</title>
     <url>/2024/11/04/Mysql%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h1 id="一、索引的概述"><a href="#一、索引的概述" class="headerlink" title="一、索引的概述"></a>一、索引的概述</h1><h2 id="1-为什么使用索引"><a href="#1-为什么使用索引" class="headerlink" title="1.为什么使用索引"></a>1.为什么使用索引</h2><p>在海量数据中进行查询某条记录的场景是经常发生的，如何提升查询性能，就跟要查询的数据字段是否有索引有关系。如果字段加了索引，那么查询的性能就会非常快！</p>
@@ -477,7 +681,11 @@
                 ></p>
 <h2 id="7-锁监控"><a href="#7-锁监控" class="headerlink" title="7.锁监控"></a>7.锁监控</h2><div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">show</span> engine innodb status \g</span><br></pre></td></tr></table></figure></div>
 
-<h1 id="十、MVCC设计思想"><a href="#十、MVCC设计思想" class="headerlink" title="十、MVCC设计思想"></a>十、MVCC设计思想</h1><p>MySQL为了权衡数据安全和性能，使用了MVCC多版本并发控制的设计。</p>
+<h1 id="十、MVCC设计思想"><a href="#十、MVCC设计思想" class="headerlink" title="十、MVCC设计思想"></a>十、MVCC设计思想</h1><p><strong>MVCC</strong>全称是<strong>Multi-Version Concurrency Control</strong>（多版本并发控制），是一种并发控制的方法，通过维护一个数据的多个版本，减少读写操作的冲突。</p>
+<p>如果没有<strong>MVCC</strong>，想要实现同一条数据的并发读写，还要保证数据的安全性，就需要操作数据的时候加读锁和写锁，这样就降低了数据库的并发性能。</p>
+<p>有了<strong>MVCC</strong>，就相当于把同一份数据生成了多个版本，在操作的开始各生成一个快照，读写操作互不影响。无需加锁，也实现数据的安全性和事务的隔离性。</p>
+<p>事务的四大特性中隔离性就是基于<strong>MVCC</strong>实现的。</p>
+<p>说MVCC的实现原理之前，先说一下事务的隔离级别。</p>
 <h2 id="1-事务的特性"><a href="#1-事务的特性" class="headerlink" title="1.事务的特性"></a>1.事务的特性</h2><ul>
 <li>原子性：一个事务是一个最小的操作单位（原子），多条sql语句在一个事务中要么同时成功，要么同时失败。</li>
 <li>一致性：事务提交之前和回滚之后的数据是一致的。</li>
@@ -512,13 +720,66 @@
                 ></p>
 </li>
 </ul>
-<h2 id="3-MVCC思想解读"><a href="#3-MVCC思想解读" class="headerlink" title="3.MVCC思想解读"></a>3.MVCC思想解读</h2><p>MySQL在读和写的操作中，对读的性能做了并发性的保障，让所有的读都是快照读，对于写的时候，进行版本控制，如果真实数据的版本比快照版本要新，那么写之前就要进行版本（快照）更新，这样就可以既能够提高读的并发性，又能够保证写的数据安全。</p>
+<h2 id="3-MVCC实现原理"><a href="#3-MVCC实现原理" class="headerlink" title="3.MVCC实现原理"></a>3.MVCC实现原理</h2><p>MySQL在读和写的操作中，对读的性能做了并发性的保障，让所有的读都是快照读，对于写的时候，进行版本控制，如果真实数据的版本比快照版本要新，那么写之前就要进行版本（快照）更新，这样就可以既能够提高读的并发性，又能够保证写的数据安全。</p>
+<h3 id="当前读和快照读"><a href="#当前读和快照读" class="headerlink" title="当前读和快照读"></a>当前读和快照读</h3><p><strong>当前读：</strong> 读取数据的最新版本，并对数据进行加锁。</p>
+<p>例如：insert、update、delete、select for update、 select lock in share mode。</p>
+<p><strong>快照读：</strong> 读取数据的历史版本，不对数据加锁。</p>
+<p>例如：select</p>
+<p>MVCC是基于Undo Log、隐藏字段、Read View（读视图）实现的。</p>
+<h3 id="隐藏字段"><a href="#隐藏字段" class="headerlink" title="隐藏字段"></a>隐藏字段</h3><p>先说一下MySQL的隐藏字段，当我们创建一张表时，InnoDB引擎会增加2个隐藏字段。</p>
+<p><strong>DB_TRX_ID（最近一次提交事务的ID）</strong>：修改表数据时，都会提交事务，每个事务都有一个唯一的ID，这个字段就记录了最近一次提交事务的ID。</p>
+<p><strong>DB_ROLL_PTR（上个版本的地址）</strong>：修改表数据时，旧版本的数据都会被记录到Undo Log日志中，每个版本的数据都有一个版本地址，这个字段记录的就是上个版本的地址。</p>
+<h3 id="版本链"><a href="#版本链" class="headerlink" title="版本链"></a>版本链</h3><p>当我们第一次往用户表插入一条记录时，表数据和隐藏字段的值是下面这样的：</p>
+<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">user</span> (name,age) <span class="keyword">values</span> (<span class="string">&#x27;一灯&#x27;</span>,<span class="number">1</span>);</span><br></pre></td></tr></table></figure></div>
+
+<p>事务ID（DB_TRX_ID）是1，上个版本地址（DB_ROLL_PTR）是null。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/wj0410/pic-bed/master/202411041019940.png"
+                     data-src="https://raw.githubusercontent.com/wj0410/pic-bed/master/202411041051688.png"
                      
                 ></p>
+<p>第二次提交事务，把用户年龄加1。</p>
+<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">update</span> <span class="keyword">user</span> <span class="keyword">set</span> age<span class="operator">=</span>age<span class="operator">+</span><span class="number">1</span> <span class="keyword">where</span> id<span class="operator">=</span><span class="number">1</span>;</span><br></pre></td></tr></table></figure></div>
+
+<p>事务ID变成2，上个版本地址指向Undo Log中的记录。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/wj0410/pic-bed/master/202411041052746.png"
+                     
+                ></p>
+<p>第三次提交事务，再把用户年龄加1。</p>
+<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">update</span> <span class="keyword">user</span> <span class="keyword">set</span> age<span class="operator">=</span>age<span class="operator">+</span><span class="number">1</span> <span class="keyword">where</span> id<span class="operator">=</span><span class="number">1</span>;</span><br></pre></td></tr></table></figure></div>
+
+<p>事务ID变成3，上个版本地址指向Undo Log中事务ID为2的记录。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/wj0410/pic-bed/master/202411041053067.png"
+                     
+                ></p>
+<p>这样表记录和<strong>Undo Log</strong>历史数据就组成了一个版本链。</p>
+<h3 id="Read-View（读视图）"><a href="#Read-View（读视图）" class="headerlink" title="Read View（读视图）"></a>Read View（读视图）</h3><p>在事务中，执行SQL查询，就会生成一个读视图，是用来保证数据的可见性，即读到Undo Log中哪个版本的数据。</p>
+<p><strong>快照读</strong>一般是读取的历史版本的读视图，<strong>当前图</strong>会生成一个最新版本的读视图。</p>
+<p>读视图是基于下面几个字段实现的：</p>
+<p><strong>m_ids</strong> ：当前系统中活跃的事务ID集合，即<strong>未提交的事务</strong>。</p>
+<p><strong>min_trx_id</strong> ：m_ids中最小的ID</p>
+<p><strong>max_trx_id</strong> ：下一个要分配的事务ID</p>
+<p><strong>creator_trx_id</strong>: 当前事务ID</p>
+<p>读视图决定当前事务能读到哪个版本的数据，从表记录到<strong>Undo Log</strong>历史数据的版本链，依次匹配，满足哪个版本的匹配规则，就能读到哪个版本的数据，一旦匹配成功就不再往下匹配。</p>
+<p><strong>数据可见性规则：</strong></p>
+<ol>
+<li><strong>DB_TRX_ID &#x3D; creator_trx_id</strong><br>如果这个版本数据的事务ID等于当前事务ID，表示数据记录的最后一次操作的事务就是当前事务，当前读视图可以读到这个版本的数据。</li>
+<li><strong>DB_TRX_ID &lt; min_trx_id</strong><br>如果这个版本数据的事务ID小于所有活跃事务ID，表示这个版本的数据不再被事务使用，即事务已提交，当前读视图可以读到这个版本的数据。</li>
+<li><strong>DB_TRX_ID &gt;&#x3D; max_trx_id</strong><br>如果这个版本数据的事务ID大于等于下一个要分配的事务ID，表示有新事务更新了这个版本的数据，这种情况下，当前读视图不可以读到这个版本的数据。</li>
+<li><strong>min_trx_id &lt;&#x3D; DB_TRX_ID &lt; max_trx_id</strong><br>如果这个版本数据的事务ID在当前系统中活跃的事务ID集合（m_ids）里面，表示这个版本的数据被其他事务更新过，当前读视图不可以读到这个版本的数据。<br>如果这个版本数据的事务ID不在当前系统中活跃的事务ID集合（m_ids）里面（代表事务已经提交了），且这个版本数据的事务ID小于最大的事务ID，表示此次是在其他事务提交后创建的读视图，当前读视图可以读到这个版本的数据。</li>
+</ol>
+<h3 id="不同隔离级别下可见性分析"><a href="#不同隔离级别下可见性分析" class="headerlink" title="不同隔离级别下可见性分析"></a>不同隔离级别下可见性分析</h3><p>在不同的事务隔离级别下，生成读视图的规则不同：</p>
+<ul>
+<li><strong>READ COMMITTED（读已提交）</strong> ：在事务中每一次执行快照读时都生成一个读视图，每个读视图中四个字段的值都是不同的。</li>
+<li><strong>REPEATABLE READ（可重复读）</strong>：仅在事务中第一次执行快照读时生成读视图，后续复用这个读视图。</li>
+</ul>
 <h1 id="十一、MySQL三大日志"><a href="#十一、MySQL三大日志" class="headerlink" title="十一、MySQL三大日志"></a>十一、MySQL三大日志</h1><p>日志是 <code>mysql</code> 数据库的重要组成部分，记录着数据库运行期间各种状态信息。<code>mysql</code>日志主要包括错误日志、查询日志、慢查询日志、事务日志、二进制日志几大类。作为开发，我们重点需要关注的是二进制日志( <code>binlog</code> )和事务日志(包括<code>redo log</code> 和 <code>undo log</code> )，本文接下来会详细介绍这三种日志。</p>
 <h2 id="1-binlog"><a href="#1-binlog" class="headerlink" title="1.binlog"></a>1.binlog</h2><p><code>binlog</code> 用于记录数据库执行的写入性操作(不包括查询)信息，以二进制的形式保存在磁盘中。<code>binlog</code> 是 <code>mysql</code>的逻辑日志，并且由 <code>Server</code> 层进行记录，使用任何存储引擎的 <code>mysql</code> 数据库都会记录 <code>binlog</code> 日志。</p>
 <ul>
@@ -604,210 +865,6 @@
       </categories>
       <tags>
         <tag>mysql</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>PicGo使用GitHub图床</title>
-    <url>/2024/11/03/PicGo%E4%BD%BF%E7%94%A8GitHub%E5%9B%BE%E5%BA%8A/</url>
-    <content><![CDATA[<p>文档地址：<a class="link"   href="https://picgo.github.io/PicGo-Doc/zh/guide/config.html#github%E5%9B%BE%E5%BA%8A" >PicGo <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-]]></content>
-      <categories>
-        <category>其他</category>
-      </categories>
-      <tags>
-        <tag>其他</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>利用Hexo搭建个人博客</title>
-    <url>/2024/11/03/%E5%88%A9%E7%94%A8Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
-    <content><![CDATA[<h4 id="预备工作"><a href="#预备工作" class="headerlink" title="预备工作"></a>预备工作</h4><p>首先安装 Node.js、npm、git工具。</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; node -v</span><br><span class="line">v12.22.9</span><br><span class="line">&gt; npm -v</span><br><span class="line">8.5.1</span><br><span class="line">&gt; git version</span><br><span class="line">git version 2.34.1</span><br></pre></td></tr></table></figure></div>
-
-<h4 id="安装-Hexo"><a href="#安装-Hexo" class="headerlink" title="安装 Hexo"></a>安装 Hexo</h4><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br><span class="line"></span><br><span class="line">&gt; hexo -v</span><br><span class="line">hexo-cli: 4.3.2</span><br><span class="line">os: darwin 22.6.0 13.6.7</span><br><span class="line"></span><br><span class="line">node: 20.8.1</span><br><span class="line">acorn: 8.10.0</span><br><span class="line">ada: 2.6.0</span><br><span class="line">ares: 1.19.1</span><br><span class="line"><span class="built_in">base64</span>: 0.5.0</span><br><span class="line">brotli: 1.0.9</span><br><span class="line">cjs_module_lexer: 1.2.2</span><br><span class="line">cldr: 43.1</span><br><span class="line">icu: 73.2</span><br><span class="line">llhttp: 8.1.1</span><br><span class="line">modules: 115</span><br><span class="line">napi: 9</span><br><span class="line">nghttp2: 1.57.0</span><br><span class="line">nghttp3: 0.7.0</span><br><span class="line">ngtcp2: 0.8.1</span><br><span class="line">openssl: 3.0.10+quic</span><br><span class="line">simdutf: 3.2.17</span><br><span class="line">tz: 2023c</span><br><span class="line">undici: 5.26.3</span><br><span class="line">unicode: 15.0</span><br><span class="line">uv: 1.46.0</span><br><span class="line">uvwasi: 0.0.18</span><br><span class="line">v8: 11.3.244.8-node.16</span><br><span class="line">zlib: 1.2.13.1-motley</span><br></pre></td></tr></table></figure></div>
-
-<h4 id="博客搭建"><a href="#博客搭建" class="headerlink" title="博客搭建"></a>博客搭建</h4><p>首先创建博客的根目录文件夹</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; <span class="built_in">mkdir</span> MyBlob</span><br><span class="line">&gt; <span class="built_in">cd</span> MyBlob</span><br></pre></td></tr></table></figure></div>
-
-<p>之后，就可以初始化这个文件夹了，初始化的目的是，它会创建一个 helloword.md 文件，然后利用 node.js 等将这个 markdown 文件渲染成一个 html 文件，然后在本地开启一个网络服务器以供前端访问</p>
-<p>由于网络问题（npm 的服务器位于国外下载慢）可以使用 cnpm（淘宝团队做的国内镜像）的获取镜像或者直接修改 npm 的资源获取地址为国内的。</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 安装cnmp</span></span><br><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br><span class="line"></span><br><span class="line"><span class="comment"># 直接修改npm资源获取地址（推荐）</span></span><br><span class="line">npm config <span class="built_in">set</span> registry http://registry.npm.taobao.org</span><br></pre></td></tr></table></figure></div>
-
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; hexo init</span><br><span class="line">INFO  Cloning hexo-starter https://github.com/hexojs/hexo-starter.git</span><br><span class="line">INFO  Install dependencies</span><br><span class="line">INFO  Start blogging with Hexo!</span><br></pre></td></tr></table></figure></div>
-
-<p>成功初始化后，会在当前文件夹下生成一些文件，目录结构如下</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/wj0410/pic-bed/master/202411032253551.png"
-                     
-                ></p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">├── _config.landscape.yml：主题配置文件，如果</span><br><span class="line"></span><br><span class="line">├── _config.yml：站点配置文件，对站点进行配置。</span><br><span class="line"></span><br><span class="line">├── node_modules：用来存储已安装的各类依赖包。</span><br><span class="line"></span><br><span class="line">├── package-lock.json：包版本依赖锁文件。</span><br><span class="line"></span><br><span class="line">├── package.json：应用数据，Hexo的版本以及相关依赖包的版本等。</span><br><span class="line"></span><br><span class="line">├── scaffolds：博客模版文件夹，包含page.md，post.md，draft.md三种。</span><br><span class="line"></span><br><span class="line">├── source：资源文件夹，存放静态资源如博客md文件、图片等。</span><br><span class="line"></span><br><span class="line">└── themes：主题文件夹，Hexo通过将网站内容与主题组合来生成静态网站。</span><br></pre></td></tr></table></figure></div>
-
-<p>初始化项目后，我们只需在根目录下本地执行下面命令即可在本地进行预览</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; hexo s</span><br><span class="line">INFO  Validating config</span><br><span class="line">INFO  Start processing</span><br><span class="line">INFO  Hexo is running at http://localhost:4000/ . Press Ctrl+C to stop.</span><br></pre></td></tr></table></figure></div>
-
-<p>然后我们访问<code>http://localhost:4000/</code>即可查看网站啦</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/wj0410/pic-bed/master/202411032257329.png"
-                     
-                ></p>
-<h4 id="Hexo基本命令介绍"><a href="#Hexo基本命令介绍" class="headerlink" title="Hexo基本命令介绍"></a>Hexo基本命令介绍</h4><ul>
-<li><p><strong>本地启动项目，s 表示 server</strong></p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; hexo s</span><br></pre></td></tr></table></figure></div>
-
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/wj0410/pic-bed/master/202411032301146.png"
-                     
-                ></p>
-</li>
-<li><p><strong>创建一个新的文章</strong></p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; hexo new [layout] &lt;title&gt;</span><br><span class="line">如：hexo new <span class="string">&quot;我的第一篇博客 Hexo Hello!&quot;</span></span><br></pre></td></tr></table></figure></div>
-
-<p>layout 表示文章布局，可选（post page draft），默认使用 <code>_config.yml</code>中的 default_layout 参数代替（post）。</p>
-<p>title 表示文章标题，如果标题包含空格的话，请使用引号括起来。</p>
-</li>
-<li><p><strong>Front-matter</strong></p>
-<p><a class="link"   href="https://hexo.io/zh-cn/docs/front-matter" >参看官方文档 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">categories:</span><br><span class="line">  - Sports</span><br><span class="line">  - Baseball</span><br><span class="line">tags:</span><br><span class="line">  - Injury</span><br><span class="line">  - Fight</span><br><span class="line">  - Shocking</span><br></pre></td></tr></table></figure></div>
-</li>
-<li><p><strong>clean 清除缓存文件 (db.json) 和已生成的静态文件 (public)</strong></p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; hexo clean</span><br></pre></td></tr></table></figure></div>
-</li>
-<li><p><strong>生成静态文件，g 表示 generate</strong></p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; hexo g</span><br></pre></td></tr></table></figure></div>
-
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/wj0410/pic-bed/master/202411032304909.png"
-                     
-                ></p>
-</li>
-<li><p><strong>部署Hexo网站，d 表示 deploy</strong></p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; hexo d</span><br></pre></td></tr></table></figure></div>
-
-<p>更多相关指令可以前往官网查看：<a class="link"   href="https://hexo.io/zh-cn/docs/commands" >https://hexo.io/zh-cn/docs/commands <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-</li>
-</ul>
-<h4 id="Hexo基本配置修改"><a href="#Hexo基本配置修改" class="headerlink" title="Hexo基本配置修改"></a>Hexo基本配置修改</h4><p><strong>【必改部分】</strong> 站点的基本设置，首页标题、子标题、简介、关键词（英文,隔开）、作者、语言和时区，都需要修改，这样才算自己的网站嘛。</p>
-<p>打开<code>_config.yml</code>，修改以下部分</p>
-<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Site</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">Wangjie&#x27;s</span> <span class="string">Blog</span></span><br><span class="line"><span class="attr">subtitle:</span> <span class="string">&#x27;知识总结&#x27;</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">&#x27;Hexo+Github&#x27;</span></span><br><span class="line"><span class="attr">keywords:</span> <span class="string">java</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">Wangjie</span></span><br><span class="line"><span class="attr">language:</span> <span class="string">zh-CN</span></span><br><span class="line"><span class="attr">timezone:</span> <span class="string">&#x27;Asia/Shanghai&#x27;</span></span><br></pre></td></tr></table></figure></div>
-
-<p>重启下 Hexo 服务，我们刷新页面，就会发现上面的修改生效啦～如果没有生效，你可以先运行下<code>hexo clean</code>先清除缓存，然后再执行<code>hexo s</code>启动服务器。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/wj0410/pic-bed/master/202411032350227.png"
-                     
-                ></p>
-<p><strong>【选改部分】</strong> </p>
-<p>访问路径相关设置</p>
-<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># URL</span></span><br><span class="line"><span class="comment">## Set your site url here. For example, if you use GitHub Page, set url as &#x27;https://username.github.io/project&#x27;</span></span><br><span class="line"><span class="attr">url:</span> <span class="string">http://example.com</span></span><br><span class="line"><span class="attr">permalink:</span> <span class="string">:year/:month/:day/:title/</span></span><br><span class="line"><span class="attr">permalink_defaults:</span></span><br><span class="line"><span class="attr">pretty_urls:</span></span><br><span class="line">  <span class="attr">trailing_index:</span> <span class="literal">true</span> <span class="comment"># Set to false to remove trailing &#x27;index.html&#x27; from permalinks</span></span><br><span class="line">  <span class="attr">trailing_html:</span> <span class="literal">true</span> <span class="comment"># Set to false to remove trailing &#x27;.html&#x27; from permalinks</span></span><br></pre></td></tr></table></figure></div>
-
-<p>原主题太简陋了，我从官网主题地址：<a class="link"   href="https://xie.infoq.cn/link?target=https://hexo.io/themes/" >https://hexo.io/themes/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>中下载了<code>Redefine</code>主题，所以我们需要将配置中的主题改为<code>redefine</code>，大家也可以选择其他主题。</p>
-<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Extensions</span></span><br><span class="line"><span class="comment">## Plugins: https://hexo.io/plugins/</span></span><br><span class="line"><span class="comment">## Themes: https://hexo.io/themes/</span></span><br><span class="line"><span class="attr">theme:</span> <span class="string">redefine</span></span><br></pre></td></tr></table></figure></div>
-
-<h4 id="Redefine主题使用文档"><a href="#Redefine主题使用文档" class="headerlink" title="Redefine主题使用文档"></a><a class="link"   href="https://redefine-docs.ohevan.com/getting-started" >Redefine主题使用文档 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></h4><blockquote>
-<p>[!NOTE]</p>
-<p>注意，该主题Hexo 版本需要大于 5.0.0</p>
-<p><strong>Hexo版本升级</strong></p>
-<p>Hexo版本升级可以通过npm实现，相关命令如下：<br>先全局升级<code>hexo-cli</code>：-g表示全局升级。<code>hexo</code>本身是一个静态博客生成工具，具备编译Markdown、拼接主题模板、生成 HTML、上传 Git 等基本功能。<code>hexo-cli</code>能够将这些功能封装为命令，提供给用户通过<code>hexo server / hexo deploy</code>等命令调用的模块。<code>CLI = Command Line Interface</code>命令行界面。</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; npm i hexo-cli -g</span><br></pre></td></tr></table></figure></div>
-
-<p>然后直接输入：(其实这个命令应该不正确)，输入之后发现出现了一系列的warn。</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; npm update</span><br></pre></td></tr></table></figure></div>
-
-<p>再输入<code>hexo vesion</code>查看当前版本，发现版本已经更新成功了。</p>
-</blockquote>
-<h4 id="将-Hexo-博客部署到-GitHub"><a href="#将-Hexo-博客部署到-GitHub" class="headerlink" title="将 Hexo 博客部署到 GitHub"></a>将 Hexo 博客部署到 GitHub</h4><p>首先我们先需要新建在 GitHub 上新建一个项目：<a class="link"   href="https://xie.infoq.cn/link?target=https://github.com/new" >https://github.com/new <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，项目名称格式需要注意，必须是<code>用户名.github.io</code>，如下图所示：</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/wj0410/pic-bed/master/202411040157011.png"
-                     
-                ></p>
-<p>同时我们需要配置下 SSH 密钥，具体配置方法可以查看：<a class="link"   href="https://xie.infoq.cn/link?target=https://mp.weixin.qq.com/s/kRjdSH-o8xULo8iiUyyhgw" >mac 如何快速生成SSH key，配置github SSH公钥连接(解决git push 413问题 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p>接着我们要修改下配置文件<code>_config.yml</code>，下滑到最后，将部署信息改为：</p>
-<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/one-command-deployment</span></span><br><span class="line"><span class="attr">deploy:</span>  </span><br><span class="line">	<span class="attr">type:</span> <span class="string">git</span>  </span><br><span class="line">	<span class="attr">repo:</span> <span class="string">git@github.com:你的用户名/你的用户名.github.io.git</span>  </span><br><span class="line">	<span class="attr">branch:</span> <span class="string">main</span></span><br></pre></td></tr></table></figure></div>
-
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/wj0410/pic-bed/master/202411040200907.png"
-                     
-                ></p>
-<p>部署到 GitHub，需要安装相关工具 hexo-deployer-git。</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure></div>
-
-<p>接下来直接输入指令配置就行了，<code>hexo clean</code>清除缓存数据，<code>hexo g</code>生成相关静态文件。</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; hexo clean</span><br><span class="line">&gt; hexo g</span><br></pre></td></tr></table></figure></div>
-
-<p>如果继续输入<code>hexo d</code>进行部署的时候，可能会报错，<code>Deployer not found: git</code> ，这个时候不要慌，这是因为在本地 Hexo 项目目录还没有初始化 git 造成的，我们运行下面命令进行初始化即可。如果没有报错则忽视。</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; git init</span><br></pre></td></tr></table></figure></div>
-
-<p>我们再次输入<code>hexo d</code>进行部署即可，可能会要求输入 GitHub 账号和密码（配置了 ssh 公钥就不需要了，上面有说如何配置），直接输入即可，上传完成后，再刷新 GitHub 页面会发现多了一些文件，原来的 readme 也不见了，这是因为 Hexo 每次部署都会将<code>hexo g</code>生成的静态文件（在 blog&#x2F;public 目录下）上传到 GitHub，<strong>并覆盖原先所有的内容</strong>。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/wj0410/pic-bed/master/202411040209477.png"
-                     
-                ></p>
-<p>这个时候，我们在浏览器内访问</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://&lt;你的用户名&gt;.github.io/</span><br><span class="line"># 如：https://wj0410.github.io/</span><br></pre></td></tr></table></figure></div>
-
-<p>即可访问我们的博客首页啦，点击博客也可以进入对应的博客页面。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/wj0410/pic-bed/master/202411040212042.png"
-                     
-                ></p>
-<p>通过上面，我们已经得到了一个在线的、可以随时随地访问的个人博客，整个操作过程还是很简单的，麻烦的就是上传更新文章和部署项目了，每次部署都需要输入账号密码，另外由于 GitHub 服务器在国外，国内访问速度也很堪忧，不用担心，这个解决还比较简单，我们可以同时将项目部署到国内码云：<a class="link"   href="https://xie.infoq.cn/link?target=https://gitee.com/" >https://gitee.com/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>或者 Coding：<a class="link"   href="https://xie.infoq.cn/link?target=https://coding.net/" >https://coding.net/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，整个过程和将项目部署到 GitHub 差不多。</p>
-<h4 id="设置应用自己的域名"><a href="#设置应用自己的域名" class="headerlink" title="设置应用自己的域名"></a>设置应用自己的域名</h4><p>如果你有域名的话，还可以设置专属域名，比如我之前在<a class="link"   href="https://xie.infoq.cn/link?target=https://www.aliyun.com/minisite/goods?taskPkg=1111ydsrwb&pkgSid=588&recordId=952736&userCode=g49jjzzx" >阿里云买的域名点击查看 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，当然大家也可以买<a class="link"   href="https://xie.infoq.cn/link?target=https://curl.qcloud.com/jaJqULOo" >腾讯云的点击查看 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，国内比较靠谱的两个云服务器和域名服务公司了～</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/wj0410/pic-bed/master/202411040215023.png"
-                     
-                ></p>
-<p>首先我们需要在阿里云域名管理后台，进行域名解析，我们直接从我们自己的域名解析到博客的 github 地址，谈及一条 CNAME 记录即可，主机记录就是我们后面通过什么链接访问，记录值就是 github 访问地址了。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/wj0410/pic-bed/master/202411040216584.png"
-                     
-                ></p>
-<p>然后我们需要到 GitHub 对应项目中设置项目的域名，进入项目-&gt; Settings -&gt; Pages -&gt; <code>Custom domain</code>，将我们设置的 CNAME 域名写入即可（注意是在这个项目的设置里，并非 GitHub 的设置）。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/wj0410/pic-bed/master/202411040218672.png"
-                     
-                ></p>
-<p>最后我们还需要在本地项目中的 blog&#x2F;source 文件夹下新建一个<code>CNAME</code>文件，编辑写入我们的域名，就是刚刚填入 GitHub 的，这样后面 GitHub 就能映射到我们的域名啦。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/wj0410/pic-bed/master/202411040219142.png"
-                     
-                ></p>
-<p>再执行下面命令，重新更新和部署项目</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; hexo g</span><br><span class="line">&gt; hexo d</span><br></pre></td></tr></table></figure></div>
-
-<p>部署成功后，我们直接访问<code>https://blog.python-brief.com/</code>（我自定义的域名）来查看我们的博客啦～</p>
-<h4 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h4><p><a class="link"   href="https://xie.infoq.cn/article/90dc08c57463df3a1b2ad960f" >https://xie.infoq.cn/article/90dc08c57463df3a1b2ad960f <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p><a class="link"   href="https://blog.csdn.net/m0_73651896/article/details/140237281" >https://blog.csdn.net/m0_73651896/article/details/140237281 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-]]></content>
-      <categories>
-        <category>其他</category>
-      </categories>
-      <tags>
-        <tag>其他</tag>
       </tags>
   </entry>
 </search>
