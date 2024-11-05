@@ -14,7 +14,7 @@
   </entry>
   <entry>
     <title>Mysql学习笔记</title>
-    <url>/2024/11/04/Mysql%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <url>/2021/11/04/Mysql%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h1 id="一、索引的概述"><a href="#一、索引的概述" class="headerlink" title="一、索引的概述"></a>一、索引的概述</h1><h2 id="1-为什么使用索引"><a href="#1-为什么使用索引" class="headerlink" title="1.为什么使用索引"></a>1.为什么使用索引</h2><p>在海量数据中进行查询某条记录的场景是经常发生的，如何提升查询性能，就跟要查询的数据字段是否有索引有关系。如果字段加了索引，那么查询的性能就会非常快！</p>
 <ul>
 <li>索引为什么快？</li>
