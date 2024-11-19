@@ -62,82 +62,9 @@
       </tags>
   </entry>
   <entry>
-    <title>Git设置多账号生成SSH公钥分别连接gitee和github</title>
-    <url>/2024/11/08/Git%E8%AE%BE%E7%BD%AE%E5%A4%9A%E8%B4%A6%E5%8F%B7%E7%94%9F%E6%88%90SSH%E5%85%AC%E9%92%A5%E5%88%86%E5%88%AB%E8%BF%9E%E6%8E%A5gitee%E5%92%8Cgithub/</url>
-    <content><![CDATA[<h3 id="一、本地Git设置账号"><a href="#一、本地Git设置账号" class="headerlink" title="一、本地Git设置账号"></a>一、本地Git设置账号</h3><ol>
-<li><p>清空全局配置和历史数</p>
-<p>由于需要设置多个账号，有全局账号需要清除，具体指令如下</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; git config --list <span class="comment"># 查看git配置</span></span><br><span class="line"></span><br><span class="line">&gt; git config --global user.name <span class="comment"># 查看git全局账号</span></span><br><span class="line"></span><br><span class="line">&gt; git config --global --<span class="built_in">unset</span> user.name <span class="comment"># 移除全局账号</span></span><br><span class="line"></span><br><span class="line">&gt; git config --global user.email <span class="comment"># 查看git全局邮箱</span></span><br><span class="line"></span><br><span class="line">&gt; git config --global --<span class="built_in">unset</span> user.email <span class="comment"># 移除全局邮箱</span></span><br><span class="line"></span><br><span class="line">&gt; git config --global user.password <span class="comment"># 查看git全局密码</span></span><br><span class="line"></span><br><span class="line">&gt; git config --global --<span class="built_in">unset</span> user.password <span class="comment"># 移除全局密码</span></span><br><span class="line"></span><br><span class="line">&gt; <span class="built_in">rm</span> -rf ~/.ssh <span class="comment"># 删除ssh密钥目录</span></span><br></pre></td></tr></table></figure></div>
-</li>
-<li><p>生成SSH密钥</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; ssh-keygen -t rsa -C<span class="string">&#x27;邮箱账号&#x27;</span> -f ~/.ssh/gitee_rsa</span><br><span class="line">&gt; ssh-keygen -t rsa -C<span class="string">&#x27;邮箱账号&#x27;</span> -f ~/.ssh/github_rsa</span><br><span class="line"><span class="comment"># 输入命令后都是直接按回车键即可，生成的密钥路径一般是C:\Users\xxx\.ssh</span></span><br></pre></td></tr></table></figure></div></li>
-</ol>
-<h3 id="二、远程Git仓库设置公钥"><a href="#二、远程Git仓库设置公钥" class="headerlink" title="二、远程Git仓库设置公钥"></a>二、远程Git仓库设置公钥</h3><ol>
-<li><p>gitee设置公钥</p>
-<ol>
-<li><p>到C:\Users\xxx.ssh目录下，用文本打开gitee_rsa.pub，复制文本里的所有内容</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/wj0410/pic-bed/master/202411081848836.png"
-                     
-                ></p>
-</li>
-</ol>
-<p>​	登录gitee官网，打开 设置-&gt;公钥，将公钥粘贴，标题调整下 点击 确定 即可，如下：<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/wj0410/pic-bed/master/202411081849913.png"
-                     
-                >	</p>
-</li>
-<li><p>github设置公钥</p>
-<p>同理，用文本打开github_rsa.pub，复制文本里的所有内容，登录github官网，进入 settings -》SSH and GPG keys -》 New SSH key 粘贴后保存即可。</p>
-</li>
-</ol>
-<p>三、本地Git配置账号主机</p>
-<p>​	在.ssh目录下新建config文件，编辑如下配置：</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/wj0410/pic-bed/master/202411081851670.png"
-                     
-                ></p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 描述</span><br><span class="line"># Host 网站地址或者ip地址</span><br><span class="line"># HostName 网站地址，可以不填</span><br><span class="line"># User 可以写邮箱名称，也可以写git账号</span><br><span class="line"># PreferredAuthentications 认证方式，可以不填</span><br><span class="line"># IdentityFile 对应密钥路径</span><br></pre></td></tr></table></figure></div>
-
-<p>测试配置是否成功</p>
-<p>​	ssh -T <a class="link"   href="mailto:git@gitee.com" >git@gitee.com <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p>​	ssh -T <a class="link"   href="mailto:git@github.com" >git@github.com <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/wj0410/pic-bed/master/202411081853729.png"
-                     
-                ></p>
-]]></content>
-      <categories>
-        <category>其他</category>
-      </categories>
-      <tags>
-        <tag>Git</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Mac安装激活Typora</title>
     <url>/2024/11/03/Mac%E5%AE%89%E8%A3%85%E6%BF%80%E6%B4%BBTypora/</url>
     <content><![CDATA[<p>原文链接：<a class="link"   href="https://blog.csdn.net/Mimo_YY/article/details/138667265" >PicGo <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-]]></content>
-      <categories>
-        <category>其他</category>
-      </categories>
-      <tags>
-        <tag>其他</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>PicGo使用GitHub图床</title>
-    <url>/2024/11/03/PicGo%E4%BD%BF%E7%94%A8GitHub%E5%9B%BE%E5%BA%8A/</url>
-    <content><![CDATA[<p>文档地址：<a class="link"   href="https://picgo.github.io/PicGo-Doc/zh/guide/config.html#github%E5%9B%BE%E5%BA%8A" >PicGo <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 ]]></content>
       <categories>
         <category>其他</category>
@@ -798,6 +725,18 @@
       </tags>
   </entry>
   <entry>
+    <title>PicGo使用GitHub图床</title>
+    <url>/2024/11/03/PicGo%E4%BD%BF%E7%94%A8GitHub%E5%9B%BE%E5%BA%8A/</url>
+    <content><![CDATA[<p>文档地址：<a class="link"   href="https://picgo.github.io/PicGo-Doc/zh/guide/config.html#github%E5%9B%BE%E5%BA%8A" >PicGo <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
+      <tags>
+        <tag>其他</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Spring validation 分组校验用法</title>
     <url>/2024/11/19/Spring%20validation%20%E5%88%86%E7%BB%84%E6%A0%A1%E9%AA%8C%E7%94%A8%E6%B3%95/</url>
     <content><![CDATA[<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>在使用 <code>Java Bean Validation</code> 进行参数校验的时候，很多场景下的一个Req实体都是同时满足多个业务，但是可能在不同的业务场景下，参数校验有细微的差别。例如在新增用户和编辑用户的场景下，UserReq实体相同，但是编辑的时候用户ID是必填的。如果想要新增用户和编辑用户共用一个UserReq实体，就只能在id属性上去掉@NotNull注解，在编辑方法上手动判断，这样实际上比较麻烦，也不够优雅。</p>
@@ -826,53 +765,6 @@
       <tags>
         <tag>java</tag>
         <tag>spring</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Springboot中优雅实现策略模式（一）</title>
-    <url>/2024/11/08/Springboot%E4%B8%AD%E4%BC%98%E9%9B%85%E5%AE%9E%E7%8E%B0%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/</url>
-    <content><![CDATA[<h3 id="策略模式简述"><a href="#策略模式简述" class="headerlink" title="策略模式简述"></a>策略模式简述</h3><p>策略模式的核心是将行为和行为的具体实现分离的模式，有以下特点：</p>
-<p>可以避免代码中出现大量的if else判断<br>可以增加新的策略而不影响调用端的逻辑代码</p>
-<h3 id="策略模式UML类图"><a href="#策略模式UML类图" class="headerlink" title="策略模式UML类图"></a>策略模式UML类图</h3><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/wj0410/pic-bed/master/202411081131757.png"
-                     
-                ></p>
-<p>核心思想是在业务使用处采用接口进行关系依赖，然后根据具体的策略选择具体的实现类执行相关的计算方法</p>
-<h3 id="通过Springboot的功能快速实现策略模式"><a href="#通过Springboot的功能快速实现策略模式" class="headerlink" title="通过Springboot的功能快速实现策略模式"></a>通过Springboot的功能快速实现策略模式</h3><h4 id="功能需求描述"><a href="#功能需求描述" class="headerlink" title="功能需求描述"></a>功能需求描述</h4><p>需要通过统一的启动任务接口启动不同类型的任务，不同类型的任务启动方式不同，通过任务类型区分不同的任务进行启动</p>
-<h4 id="策略模式接口定义"><a href="#策略模式接口定义" class="headerlink" title="策略模式接口定义"></a>策略模式接口定义</h4><div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">TaskHandler</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取任务类型</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 任务类型</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    String <span class="title function_">taskType</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 启动任务</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> taskInfo 任务信息</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 是否启动成功</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    Boolean <span class="title function_">start</span><span class="params">(TaskInfo taskInfo)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 停止任务</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> taskInfo 任务信息</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 是否停止成功</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    Boolean <span class="title function_">stop</span><span class="params">(TaskInfo taskInfo)</span>;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-
-<p>定义策略接口，包含三个方法：</p>
-<p>taskType：获取任务类型，由具体策略实现类标记具体处理哪种类型的任务<br>start：启动任务<br>stop：终止任务</p>
-<h4 id="具体策略实现类"><a href="#具体策略实现类" class="headerlink" title="具体策略实现类"></a>具体策略实现类</h4><ul>
-<li><p>mysql任务策略类</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MysqlTaskHandler</span> <span class="keyword">implements</span> <span class="title class_">TaskHandler</span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">taskType</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;mysql&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Boolean <span class="title function_">start</span><span class="params">(TaskInfo taskInfo)</span> &#123;</span><br><span class="line">        log.info(<span class="string">&quot;mysql task start...&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> Boolean.TRUE;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Boolean <span class="title function_">stop</span><span class="params">(TaskInfo taskInfo)</span> &#123;</span><br><span class="line">        log.info(<span class="string">&quot;mysql task stopped...&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> Boolean.TRUE;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-</li>
-<li><p>sqlserver策略实现类</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SqlserverTaskHandler</span> <span class="keyword">implements</span> <span class="title class_">TaskHandler</span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">taskType</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;sqlserver&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Boolean <span class="title function_">start</span><span class="params">(TaskInfo taskInfo)</span> &#123;</span><br><span class="line">        log.info(<span class="string">&quot;sqlserver task start...&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> Boolean.TRUE;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Boolean <span class="title function_">stop</span><span class="params">(TaskInfo taskInfo)</span> &#123;</span><br><span class="line">        log.info(<span class="string">&quot;sqlserver task stopped...&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> Boolean.TRUE;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></li>
-</ul>
-<h4 id="策略的注册与调用"><a href="#策略的注册与调用" class="headerlink" title="策略的注册与调用"></a>策略的注册与调用</h4><ul>
-<li><p>策略注册</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TaskHandlerRegister</span> <span class="keyword">implements</span> <span class="title class_">CommandLineRunner</span>, ApplicationContextAware &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> ApplicationContext applicationContext;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Map&lt;String, TaskHandler&gt; taskHandlerMap = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">(String... args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="keyword">final</span> Map&lt;String, TaskHandler&gt; beansOfType = applicationContext.getBeansOfType(TaskHandler.class);</span><br><span class="line">        <span class="keyword">for</span> (TaskHandler taskHandler : beansOfType.values()) &#123;</span><br><span class="line">            taskHandlerMap.put(taskHandler.taskType(), taskHandler);</span><br><span class="line">            log.info(<span class="string">&quot;TaskHandler type:&#123;&#125; has been registered...&quot;</span>, taskHandler.taskType());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据任务类型获取具体策略</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> taskType 任务类型</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 具体策略实现类</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> TaskHandler <span class="title function_">getTaskHandler</span><span class="params">(String taskType)</span> &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="type">TaskHandler</span> <span class="variable">taskHandler</span> <span class="operator">=</span> taskHandlerMap.get(taskType);</span><br><span class="line">        <span class="keyword">if</span> (Objects.isNull(taskHandler)) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(String.format(<span class="string">&quot;taskType:%s can not resolve&quot;</span>, taskType));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> taskHandler;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setApplicationContext</span><span class="params">(ApplicationContext applicationContext)</span> <span class="keyword">throws</span> BeansException &#123;</span><br><span class="line">        <span class="built_in">this</span>.applicationContext = applicationContext;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-</li>
-<li><p>CommandLineRunner接口：在SpringBoot项目初始化完成后执行该接口的run方法，可以用于做一些初始化操作，这里利用该方法进行策略的发现和注册，将策略的具体实现类通过Map进行缓存</p>
-</li>
-<li><p>ApplicationContextAware接口：实现该接口的类可以获取到Springboot的上下文执行环境ApplicationContext，通过上下文执行环境可以获取到SpringBoot容器中的Bean对象，这里通过applicationContext.getBeansOfType(TaskHandler.class)方法获取实现TaskHandler接口的所有实例Bean，即为该策略的全部实现</p>
-</li>
-<li><p>getTaskHandler方法：通过任务类型获取具体的策略实现类，便于在业务端进行调用</p>
-</li>
-</ul>
-<h4 id="具体业务端调用策略"><a href="#具体业务端调用策略" class="headerlink" title="具体业务端调用策略"></a>具体业务端调用策略</h4><div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TaskService</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> TaskHandlerRegister taskHandlerRegister;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">TaskService</span><span class="params">(TaskHandlerRegister taskHandlerRegister)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.taskHandlerRegister = taskHandlerRegister;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> Boolean <span class="title function_">startTask</span><span class="params">(TaskInfo taskInfo)</span> &#123;</span><br><span class="line">    	<span class="comment">// 通过任务类型获取到具体的任务处理类</span></span><br><span class="line">        <span class="keyword">final</span> <span class="type">TaskHandler</span> <span class="variable">taskHandler</span> <span class="operator">=</span> taskHandlerRegister.getTaskHandler(taskInfo.getTaskType());</span><br><span class="line">        <span class="comment">// 调用具体任务处理类的start方法启动任务</span></span><br><span class="line">        <span class="keyword">return</span> taskHandler.start(taskInfo);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Boolean <span class="title function_">stopTask</span><span class="params">(TaskInfo taskInfo)</span> &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="type">TaskHandler</span> <span class="variable">taskHandler</span> <span class="operator">=</span> taskHandlerRegister.getTaskHandler(taskInfo.getTaskType());</span><br><span class="line">        <span class="keyword">return</span> taskHandler.stop(taskInfo);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-
-<p>在具体的业务端注入TaskHandlerRegister服务，在启动任务时通过任务类型获取到具体的实现策略，taskHandlerRegister.getTaskHandler(taskInfo.getTaskType());然后调用具体策略的具体方法。</p>
-]]></content>
-      <categories>
-        <category>java</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>设计模式</tag>
       </tags>
   </entry>
   <entry>
@@ -1089,6 +981,114 @@
       <tags>
         <tag>java</tag>
         <tag>spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Git设置多账号生成SSH公钥分别连接gitee和github</title>
+    <url>/2024/11/08/Git%E8%AE%BE%E7%BD%AE%E5%A4%9A%E8%B4%A6%E5%8F%B7%E7%94%9F%E6%88%90SSH%E5%85%AC%E9%92%A5%E5%88%86%E5%88%AB%E8%BF%9E%E6%8E%A5gitee%E5%92%8Cgithub/</url>
+    <content><![CDATA[<h3 id="一、本地Git设置账号"><a href="#一、本地Git设置账号" class="headerlink" title="一、本地Git设置账号"></a>一、本地Git设置账号</h3><ol>
+<li><p>清空全局配置和历史数</p>
+<p>由于需要设置多个账号，有全局账号需要清除，具体指令如下</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; git config --list <span class="comment"># 查看git配置</span></span><br><span class="line"></span><br><span class="line">&gt; git config --global user.name <span class="comment"># 查看git全局账号</span></span><br><span class="line"></span><br><span class="line">&gt; git config --global --<span class="built_in">unset</span> user.name <span class="comment"># 移除全局账号</span></span><br><span class="line"></span><br><span class="line">&gt; git config --global user.email <span class="comment"># 查看git全局邮箱</span></span><br><span class="line"></span><br><span class="line">&gt; git config --global --<span class="built_in">unset</span> user.email <span class="comment"># 移除全局邮箱</span></span><br><span class="line"></span><br><span class="line">&gt; git config --global user.password <span class="comment"># 查看git全局密码</span></span><br><span class="line"></span><br><span class="line">&gt; git config --global --<span class="built_in">unset</span> user.password <span class="comment"># 移除全局密码</span></span><br><span class="line"></span><br><span class="line">&gt; <span class="built_in">rm</span> -rf ~/.ssh <span class="comment"># 删除ssh密钥目录</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>生成SSH密钥</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; ssh-keygen -t rsa -C<span class="string">&#x27;邮箱账号&#x27;</span> -f ~/.ssh/gitee_rsa</span><br><span class="line">&gt; ssh-keygen -t rsa -C<span class="string">&#x27;邮箱账号&#x27;</span> -f ~/.ssh/github_rsa</span><br><span class="line"><span class="comment"># 输入命令后都是直接按回车键即可，生成的密钥路径一般是C:\Users\xxx\.ssh</span></span><br></pre></td></tr></table></figure></div></li>
+</ol>
+<h3 id="二、远程Git仓库设置公钥"><a href="#二、远程Git仓库设置公钥" class="headerlink" title="二、远程Git仓库设置公钥"></a>二、远程Git仓库设置公钥</h3><ol>
+<li><p>gitee设置公钥</p>
+<ol>
+<li><p>到C:\Users\xxx.ssh目录下，用文本打开gitee_rsa.pub，复制文本里的所有内容</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/wj0410/pic-bed/master/202411081848836.png"
+                     
+                ></p>
+</li>
+</ol>
+<p>​	登录gitee官网，打开 设置-&gt;公钥，将公钥粘贴，标题调整下 点击 确定 即可，如下：<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/wj0410/pic-bed/master/202411081849913.png"
+                     
+                >	</p>
+</li>
+<li><p>github设置公钥</p>
+<p>同理，用文本打开github_rsa.pub，复制文本里的所有内容，登录github官网，进入 settings -》SSH and GPG keys -》 New SSH key 粘贴后保存即可。</p>
+</li>
+</ol>
+<p>三、本地Git配置账号主机</p>
+<p>​	在.ssh目录下新建config文件，编辑如下配置：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/wj0410/pic-bed/master/202411081851670.png"
+                     
+                ></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 描述</span><br><span class="line"># Host 网站地址或者ip地址</span><br><span class="line"># HostName 网站地址，可以不填</span><br><span class="line"># User 可以写邮箱名称，也可以写git账号</span><br><span class="line"># PreferredAuthentications 认证方式，可以不填</span><br><span class="line"># IdentityFile 对应密钥路径</span><br></pre></td></tr></table></figure></div>
+
+<p>测试配置是否成功</p>
+<p>​	ssh -T <a class="link"   href="mailto:git@gitee.com" >git@gitee.com <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>​	ssh -T <a class="link"   href="mailto:git@github.com" >git@github.com <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/wj0410/pic-bed/master/202411081853729.png"
+                     
+                ></p>
+]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Springboot中优雅实现策略模式（一）</title>
+    <url>/2024/11/08/Springboot%E4%B8%AD%E4%BC%98%E9%9B%85%E5%AE%9E%E7%8E%B0%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<h3 id="策略模式简述"><a href="#策略模式简述" class="headerlink" title="策略模式简述"></a>策略模式简述</h3><p>策略模式的核心是将行为和行为的具体实现分离的模式，有以下特点：</p>
+<p>可以避免代码中出现大量的if else判断<br>可以增加新的策略而不影响调用端的逻辑代码</p>
+<h3 id="策略模式UML类图"><a href="#策略模式UML类图" class="headerlink" title="策略模式UML类图"></a>策略模式UML类图</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/wj0410/pic-bed/master/202411081131757.png"
+                     
+                ></p>
+<p>核心思想是在业务使用处采用接口进行关系依赖，然后根据具体的策略选择具体的实现类执行相关的计算方法</p>
+<h3 id="通过Springboot的功能快速实现策略模式"><a href="#通过Springboot的功能快速实现策略模式" class="headerlink" title="通过Springboot的功能快速实现策略模式"></a>通过Springboot的功能快速实现策略模式</h3><h4 id="功能需求描述"><a href="#功能需求描述" class="headerlink" title="功能需求描述"></a>功能需求描述</h4><p>需要通过统一的启动任务接口启动不同类型的任务，不同类型的任务启动方式不同，通过任务类型区分不同的任务进行启动</p>
+<h4 id="策略模式接口定义"><a href="#策略模式接口定义" class="headerlink" title="策略模式接口定义"></a>策略模式接口定义</h4><div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">TaskHandler</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取任务类型</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 任务类型</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    String <span class="title function_">taskType</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 启动任务</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> taskInfo 任务信息</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 是否启动成功</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    Boolean <span class="title function_">start</span><span class="params">(TaskInfo taskInfo)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 停止任务</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> taskInfo 任务信息</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 是否停止成功</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    Boolean <span class="title function_">stop</span><span class="params">(TaskInfo taskInfo)</span>;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>定义策略接口，包含三个方法：</p>
+<p>taskType：获取任务类型，由具体策略实现类标记具体处理哪种类型的任务<br>start：启动任务<br>stop：终止任务</p>
+<h4 id="具体策略实现类"><a href="#具体策略实现类" class="headerlink" title="具体策略实现类"></a>具体策略实现类</h4><ul>
+<li><p>mysql任务策略类</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MysqlTaskHandler</span> <span class="keyword">implements</span> <span class="title class_">TaskHandler</span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">taskType</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;mysql&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Boolean <span class="title function_">start</span><span class="params">(TaskInfo taskInfo)</span> &#123;</span><br><span class="line">        log.info(<span class="string">&quot;mysql task start...&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> Boolean.TRUE;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Boolean <span class="title function_">stop</span><span class="params">(TaskInfo taskInfo)</span> &#123;</span><br><span class="line">        log.info(<span class="string">&quot;mysql task stopped...&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> Boolean.TRUE;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>sqlserver策略实现类</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SqlserverTaskHandler</span> <span class="keyword">implements</span> <span class="title class_">TaskHandler</span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">taskType</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;sqlserver&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Boolean <span class="title function_">start</span><span class="params">(TaskInfo taskInfo)</span> &#123;</span><br><span class="line">        log.info(<span class="string">&quot;sqlserver task start...&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> Boolean.TRUE;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Boolean <span class="title function_">stop</span><span class="params">(TaskInfo taskInfo)</span> &#123;</span><br><span class="line">        log.info(<span class="string">&quot;sqlserver task stopped...&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> Boolean.TRUE;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<h4 id="策略的注册与调用"><a href="#策略的注册与调用" class="headerlink" title="策略的注册与调用"></a>策略的注册与调用</h4><ul>
+<li><p>策略注册</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TaskHandlerRegister</span> <span class="keyword">implements</span> <span class="title class_">CommandLineRunner</span>, ApplicationContextAware &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> ApplicationContext applicationContext;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Map&lt;String, TaskHandler&gt; taskHandlerMap = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">(String... args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="keyword">final</span> Map&lt;String, TaskHandler&gt; beansOfType = applicationContext.getBeansOfType(TaskHandler.class);</span><br><span class="line">        <span class="keyword">for</span> (TaskHandler taskHandler : beansOfType.values()) &#123;</span><br><span class="line">            taskHandlerMap.put(taskHandler.taskType(), taskHandler);</span><br><span class="line">            log.info(<span class="string">&quot;TaskHandler type:&#123;&#125; has been registered...&quot;</span>, taskHandler.taskType());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据任务类型获取具体策略</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> taskType 任务类型</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 具体策略实现类</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> TaskHandler <span class="title function_">getTaskHandler</span><span class="params">(String taskType)</span> &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="type">TaskHandler</span> <span class="variable">taskHandler</span> <span class="operator">=</span> taskHandlerMap.get(taskType);</span><br><span class="line">        <span class="keyword">if</span> (Objects.isNull(taskHandler)) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(String.format(<span class="string">&quot;taskType:%s can not resolve&quot;</span>, taskType));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> taskHandler;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setApplicationContext</span><span class="params">(ApplicationContext applicationContext)</span> <span class="keyword">throws</span> BeansException &#123;</span><br><span class="line">        <span class="built_in">this</span>.applicationContext = applicationContext;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>CommandLineRunner接口：在SpringBoot项目初始化完成后执行该接口的run方法，可以用于做一些初始化操作，这里利用该方法进行策略的发现和注册，将策略的具体实现类通过Map进行缓存</p>
+</li>
+<li><p>ApplicationContextAware接口：实现该接口的类可以获取到Springboot的上下文执行环境ApplicationContext，通过上下文执行环境可以获取到SpringBoot容器中的Bean对象，这里通过applicationContext.getBeansOfType(TaskHandler.class)方法获取实现TaskHandler接口的所有实例Bean，即为该策略的全部实现</p>
+</li>
+<li><p>getTaskHandler方法：通过任务类型获取具体的策略实现类，便于在业务端进行调用</p>
+</li>
+</ul>
+<h4 id="具体业务端调用策略"><a href="#具体业务端调用策略" class="headerlink" title="具体业务端调用策略"></a>具体业务端调用策略</h4><div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TaskService</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> TaskHandlerRegister taskHandlerRegister;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">TaskService</span><span class="params">(TaskHandlerRegister taskHandlerRegister)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.taskHandlerRegister = taskHandlerRegister;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> Boolean <span class="title function_">startTask</span><span class="params">(TaskInfo taskInfo)</span> &#123;</span><br><span class="line">    	<span class="comment">// 通过任务类型获取到具体的任务处理类</span></span><br><span class="line">        <span class="keyword">final</span> <span class="type">TaskHandler</span> <span class="variable">taskHandler</span> <span class="operator">=</span> taskHandlerRegister.getTaskHandler(taskInfo.getTaskType());</span><br><span class="line">        <span class="comment">// 调用具体任务处理类的start方法启动任务</span></span><br><span class="line">        <span class="keyword">return</span> taskHandler.start(taskInfo);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Boolean <span class="title function_">stopTask</span><span class="params">(TaskInfo taskInfo)</span> &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="type">TaskHandler</span> <span class="variable">taskHandler</span> <span class="operator">=</span> taskHandlerRegister.getTaskHandler(taskInfo.getTaskType());</span><br><span class="line">        <span class="keyword">return</span> taskHandler.stop(taskInfo);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>在具体的业务端注入TaskHandlerRegister服务，在启动任务时通过任务类型获取到具体的实现策略，taskHandlerRegister.getTaskHandler(taskInfo.getTaskType());然后调用具体策略的具体方法。</p>
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>设计模式</tag>
       </tags>
   </entry>
 </search>
