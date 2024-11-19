@@ -62,18 +62,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Mac安装激活Typora</title>
-    <url>/2024/11/03/Mac%E5%AE%89%E8%A3%85%E6%BF%80%E6%B4%BBTypora/</url>
-    <content><![CDATA[<p>原文链接：<a class="link"   href="https://blog.csdn.net/Mimo_YY/article/details/138667265" >PicGo <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-]]></content>
-      <categories>
-        <category>其他</category>
-      </categories>
-      <tags>
-        <tag>其他</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Caffeine本地缓存快速上手教程</title>
     <url>/2024/11/14/Caffeine%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B%E6%95%99%E7%A8%8B/</url>
     <content><![CDATA[<h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p>使用缓存的优点是可以减少直接访问数据库的压力。Caffeine是目前单机版缓存性能最高的，提供了最优的缓存命中率。用法和java中的map集合比较类似，底层使用一个ConcurrentHashMap来保存所有数据，可以理解为一个增强版的map集合，增强的功能有设置缓存过期时间，缓存数据驱逐，统计缓存数据等。本文会大量使用详细的代码示例，通俗易懂地帮助大家学会使用Caffeine本地缓存。</p>
@@ -132,6 +120,18 @@
       <tags>
         <tag>java</tag>
         <tag>缓存</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Mac安装激活Typora</title>
+    <url>/2024/11/03/Mac%E5%AE%89%E8%A3%85%E6%BF%80%E6%B4%BBTypora/</url>
+    <content><![CDATA[<p>原文链接：<a class="link"   href="https://blog.csdn.net/Mimo_YY/article/details/138667265" >PicGo <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
+      <tags>
+        <tag>其他</tag>
       </tags>
   </entry>
   <entry>
@@ -414,30 +414,6 @@
       </categories>
       <tags>
         <tag>其他</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>记一次@NotEmpty失效问题</title>
-    <url>/2024/11/13/%E8%AE%B0%E4%B8%80%E6%AC%A1@NotEmpty%E5%A4%B1%E6%95%88%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<p>最近在接手一个新项目中，使用@NotEmpty注解无效，但是@NotNull注解却可以使用，百思不得其解，网上也查了一些资料，说springboot版本问题，让加<code>spring-boot-starter-validation</code>依赖，但是加了也没效果，Controller上加了@Validated注解，方法上也加了@Valid注解，都没效果。最后发现是因为<strong>早期的<code>Hibernate Validator</code>版本可能对@NotEmpty不支持</strong>，项目中正好也单独引入了<code>Hibernate Validator</code>，删除掉依赖后，使用<code>spring-boot-starter-validation</code>的依赖就好了。</p>
-<blockquote>
-<p>spring-boot-starter-validation 和Hibernate Validator的关系</p>
-<p><code>spring-boot-starter-validation</code> 是 Spring Boot 的一个模块，它提供了数据验证的功能，而 Hibernate Validator 是数据验证的一个流行实现。</p>
-<p>Spring Boot Starter Validation 模块依赖于 Hibernate Validator，并提供了一些方便的自动配置。Hibernate Validator 提供了基于 Bean 校验的 API，它支持 JSR-303 和 JSR-380 注解，这些注解可以被用来对 Java Beans 进行数据校验。</p>
-<p>关系简单来说就是：</p>
-<ul>
-<li>Spring Boot Starter Validation 依赖于 Hibernate Validator。</li>
-<li>Hibernate Validator 是一个数据校验的实现，提供了基于注解的数据校验方式。</li>
-<li>Spring Boot Starter Validation 提供了自动配置和启动所需要的依赖。</li>
-</ul>
-</blockquote>
-]]></content>
-      <categories>
-        <category>java</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>spring</tag>
       </tags>
   </entry>
   <entry>
@@ -1089,6 +1065,30 @@
       </categories>
       <tags>
         <tag>mysql</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>记一次@NotEmpty失效问题</title>
+    <url>/2024/11/13/%E8%AE%B0%E4%B8%80%E6%AC%A1@NotEmpty%E5%A4%B1%E6%95%88%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<p>最近在接手一个新项目中，使用@NotEmpty注解无效，但是@NotNull注解却可以使用，百思不得其解，网上也查了一些资料，说springboot版本问题，让加<code>spring-boot-starter-validation</code>依赖，但是加了也没效果，Controller上加了@Validated注解，方法上也加了@Valid注解，都没效果。最后发现是因为<strong>早期的<code>Hibernate Validator</code>版本可能对@NotEmpty不支持</strong>，项目中正好也单独引入了<code>Hibernate Validator</code>，删除掉依赖后，使用<code>spring-boot-starter-validation</code>的依赖就好了。</p>
+<blockquote>
+<p>spring-boot-starter-validation 和Hibernate Validator的关系</p>
+<p><code>spring-boot-starter-validation</code> 是 Spring Boot 的一个模块，它提供了数据验证的功能，而 Hibernate Validator 是数据验证的一个流行实现。</p>
+<p>Spring Boot Starter Validation 模块依赖于 Hibernate Validator，并提供了一些方便的自动配置。Hibernate Validator 提供了基于 Bean 校验的 API，它支持 JSR-303 和 JSR-380 注解，这些注解可以被用来对 Java Beans 进行数据校验。</p>
+<p>关系简单来说就是：</p>
+<ul>
+<li>Spring Boot Starter Validation 依赖于 Hibernate Validator。</li>
+<li>Hibernate Validator 是一个数据校验的实现，提供了基于注解的数据校验方式。</li>
+<li>Spring Boot Starter Validation 提供了自动配置和启动所需要的依赖。</li>
+</ul>
+</blockquote>
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>spring</tag>
       </tags>
   </entry>
 </search>
