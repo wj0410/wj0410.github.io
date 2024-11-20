@@ -135,18 +135,6 @@
       </tags>
   </entry>
   <entry>
-    <title>PicGo使用GitHub图床</title>
-    <url>/2024/11/03/PicGo%E4%BD%BF%E7%94%A8GitHub%E5%9B%BE%E5%BA%8A/</url>
-    <content><![CDATA[<p>文档地址：<a class="link"   href="https://picgo.github.io/PicGo-Doc/zh/guide/config.html#github%E5%9B%BE%E5%BA%8A" >PicGo <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-]]></content>
-      <categories>
-        <category>其他</category>
-      </categories>
-      <tags>
-        <tag>其他</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Mysql学习笔记</title>
     <url>/2021/11/04/Mysql%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h1 id="一、索引的概述"><a href="#一、索引的概述" class="headerlink" title="一、索引的概述"></a>一、索引的概述</h1><h2 id="1-为什么使用索引"><a href="#1-为什么使用索引" class="headerlink" title="1.为什么使用索引"></a>1.为什么使用索引</h2><p>在海量数据中进行查询某条记录的场景是经常发生的，如何提升查询性能，就跟要查询的数据字段是否有索引有关系。如果字段加了索引，那么查询的性能就会非常快！</p>
@@ -798,6 +786,50 @@
       </tags>
   </entry>
   <entry>
+    <title>PicGo使用GitHub图床</title>
+    <url>/2024/11/03/PicGo%E4%BD%BF%E7%94%A8GitHub%E5%9B%BE%E5%BA%8A/</url>
+    <content><![CDATA[<p>文档地址：<a class="link"   href="https://picgo.github.io/PicGo-Doc/zh/guide/config.html#github%E5%9B%BE%E5%BA%8A" >PicGo <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
+      <tags>
+        <tag>其他</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spring validation 分组校验用法</title>
+    <url>/2024/11/19/Spring%20validation%20%E5%88%86%E7%BB%84%E6%A0%A1%E9%AA%8C%E7%94%A8%E6%B3%95/</url>
+    <content><![CDATA[<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>在使用 <code>Java Bean Validation</code> 进行参数校验的时候，很多场景下的一个Req实体都是同时满足多个业务，但是可能在不同的业务场景下，参数校验有细微的差别。例如在新增用户和编辑用户的场景下，UserReq实体相同，但是编辑的时候用户ID是必填的。如果想要新增用户和编辑用户共用一个UserReq实体，就只能在id属性上去掉@NotNull注解，在编辑方法上手动判断，这样实际上比较麻烦，也不够优雅。</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserReq</span> &#123;</span><br><span class="line">  <span class="keyword">private</span> Long id;</span><br><span class="line">  <span class="meta">@NotEmpty(message=&quot;name 不能为空&quot;)</span></span><br><span class="line">  <span class="keyword">private</span> String name;</span><br><span class="line">  <span class="meta">@NotNull(message=&quot;age 不能为空&quot;)</span></span><br><span class="line">  <span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserController</span>&#123;</span><br><span class="line">  <span class="keyword">public</span> R <span class="title function_">create</span><span class="params">(<span class="meta">@RequestBody</span> <span class="meta">@Valid</span> UserReq userReq)</span>&#123;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> R <span class="title function_">edit</span><span class="params">(<span class="meta">@RequestBody</span> <span class="meta">@Valid</span> UserReq userReq)</span>&#123;</span><br><span class="line">    <span class="comment">// 手动判断id</span></span><br><span class="line">    <span class="keyword">if</span>(userReq.getId() == <span class="literal">null</span>)&#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">ServiceException</span>(...)</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>如果能给id字段上打一个记号，标识出id字段只需要编辑时校验，新增的时候忽视掉就好了。</p>
+<h4 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h4><p>实际上，@NotEmpty、@NotNull … 注解上有一个属性，叫做groups，用于指定一个验证分组。它允许你对同一个对象应用不同的验证规则，具体规则可以根据上下文的不同而有所不同。</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.CONSTRUCTOR, ElementType.PARAMETER, ElementType.TYPE_USE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Repeatable(NotNull.List.class)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Constraint(</span></span><br><span class="line"><span class="meta">    validatedBy = &#123;&#125;</span></span><br><span class="line"><span class="meta">)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> NotNull &#123;</span><br><span class="line">    String <span class="title function_">message</span><span class="params">()</span> <span class="keyword">default</span> <span class="string">&quot;&#123;javax.validation.constraints.NotNull.message&#125;&quot;</span>;</span><br><span class="line"></span><br><span class="line">    Class&lt;?&gt;[] groups() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    Class&lt;? <span class="keyword">extends</span> <span class="title class_">Payload</span>&gt;[] payload() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Target(&#123;ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.CONSTRUCTOR, ElementType.PARAMETER, ElementType.TYPE_USE&#125;)</span></span><br><span class="line">    <span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line">    <span class="meta">@Documented</span></span><br><span class="line">    <span class="keyword">public</span> <span class="meta">@interface</span> List &#123;</span><br><span class="line">        NotNull[] value();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>于是我们可以定义不同的验证分组接口，用于标识不同的验证场景。例如：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">ValidGroup</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">interface</span> <span class="title class_">InsertGroup</span> &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">interface</span> <span class="title class_">UpdateGroup</span> &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">interface</span> <span class="title class_">DeleteGroup</span> &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>然后在Req实体的属性上标注出场景</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserReq</span> &#123;</span><br><span class="line">  <span class="meta">@NotNull(message=&quot;id不能为空&quot;, groups = &#123;UpdateGroup.class&#125;)</span></span><br><span class="line">  <span class="keyword">private</span> Long id;</span><br><span class="line">  <span class="meta">@NotEmpty(message=&quot;name不能为空&quot;, groups = &#123;InsertGroup.class, UpdateGroup.class&#125;)</span></span><br><span class="line">  <span class="keyword">private</span> String name;</span><br><span class="line">  <span class="meta">@NotNull(message=&quot;age不能为空&quot;, groups = &#123;InsertGroup.class, UpdateGroup.class&#125;)</span></span><br><span class="line">  <span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>然后在Controller接口方法上制定验证的分组规则</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserController</span>&#123;</span><br><span class="line">  <span class="keyword">public</span> R <span class="title function_">create</span><span class="params">(<span class="meta">@RequestBody</span> <span class="meta">@Validated(ValidGroup.InsertGroup.class)</span> UserReq userReq)</span>&#123;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> R <span class="title function_">edit</span><span class="params">(<span class="meta">@RequestBody</span> <span class="meta">@Validated(ValidGroup.UpdateGroup.class)</span> UserReq userReq)</span>&#123;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>这样就实现参数的优雅校验了。</p>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>Spring</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>spring</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Springboot中优雅实现策略模式（一）</title>
     <url>/2024/11/08/Springboot%E4%B8%AD%E4%BC%98%E9%9B%85%E5%AE%9E%E7%8E%B0%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/</url>
     <content><![CDATA[<h3 id="策略模式简述"><a href="#策略模式简述" class="headerlink" title="策略模式简述"></a>策略模式简述</h3><p>策略模式的核心是将行为和行为的具体实现分离的模式，有以下特点：</p>
@@ -842,38 +874,6 @@
       <tags>
         <tag>java</tag>
         <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Spring validation 分组校验用法</title>
-    <url>/2024/11/19/Spring%20validation%20%E5%88%86%E7%BB%84%E6%A0%A1%E9%AA%8C%E7%94%A8%E6%B3%95/</url>
-    <content><![CDATA[<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>在使用 <code>Java Bean Validation</code> 进行参数校验的时候，很多场景下的一个Req实体都是同时满足多个业务，但是可能在不同的业务场景下，参数校验有细微的差别。例如在新增用户和编辑用户的场景下，UserReq实体相同，但是编辑的时候用户ID是必填的。如果想要新增用户和编辑用户共用一个UserReq实体，就只能在id属性上去掉@NotNull注解，在编辑方法上手动判断，这样实际上比较麻烦，也不够优雅。</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserReq</span> &#123;</span><br><span class="line">  <span class="keyword">private</span> Long id;</span><br><span class="line">  <span class="meta">@NotEmpty(message=&quot;name 不能为空&quot;)</span></span><br><span class="line">  <span class="keyword">private</span> String name;</span><br><span class="line">  <span class="meta">@NotNull(message=&quot;age 不能为空&quot;)</span></span><br><span class="line">  <span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserController</span>&#123;</span><br><span class="line">  <span class="keyword">public</span> R <span class="title function_">create</span><span class="params">(<span class="meta">@RequestBody</span> <span class="meta">@Valid</span> UserReq userReq)</span>&#123;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> R <span class="title function_">edit</span><span class="params">(<span class="meta">@RequestBody</span> <span class="meta">@Valid</span> UserReq userReq)</span>&#123;</span><br><span class="line">    <span class="comment">// 手动判断id</span></span><br><span class="line">    <span class="keyword">if</span>(userReq.getId() == <span class="literal">null</span>)&#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">ServiceException</span>(...)</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-
-<p>如果能给id字段上打一个记号，标识出id字段只需要编辑时校验，新增的时候忽视掉就好了。</p>
-<h4 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h4><p>实际上，@NotEmpty、@NotNull … 注解上有一个属性，叫做groups，用于指定一个验证分组。它允许你对同一个对象应用不同的验证规则，具体规则可以根据上下文的不同而有所不同。</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.CONSTRUCTOR, ElementType.PARAMETER, ElementType.TYPE_USE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Repeatable(NotNull.List.class)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Constraint(</span></span><br><span class="line"><span class="meta">    validatedBy = &#123;&#125;</span></span><br><span class="line"><span class="meta">)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> NotNull &#123;</span><br><span class="line">    String <span class="title function_">message</span><span class="params">()</span> <span class="keyword">default</span> <span class="string">&quot;&#123;javax.validation.constraints.NotNull.message&#125;&quot;</span>;</span><br><span class="line"></span><br><span class="line">    Class&lt;?&gt;[] groups() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    Class&lt;? <span class="keyword">extends</span> <span class="title class_">Payload</span>&gt;[] payload() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Target(&#123;ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.CONSTRUCTOR, ElementType.PARAMETER, ElementType.TYPE_USE&#125;)</span></span><br><span class="line">    <span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line">    <span class="meta">@Documented</span></span><br><span class="line">    <span class="keyword">public</span> <span class="meta">@interface</span> List &#123;</span><br><span class="line">        NotNull[] value();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-
-<p>于是我们可以定义不同的验证分组接口，用于标识不同的验证场景。例如：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">ValidGroup</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">interface</span> <span class="title class_">InsertGroup</span> &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">interface</span> <span class="title class_">UpdateGroup</span> &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">interface</span> <span class="title class_">DeleteGroup</span> &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-
-<p>然后在Req实体的属性上标注出场景</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserReq</span> &#123;</span><br><span class="line">  <span class="meta">@NotNull(message=&quot;id不能为空&quot;, groups = &#123;UpdateGroup.class&#125;)</span></span><br><span class="line">  <span class="keyword">private</span> Long id;</span><br><span class="line">  <span class="meta">@NotEmpty(message=&quot;name不能为空&quot;, groups = &#123;InsertGroup.class, UpdateGroup.class&#125;)</span></span><br><span class="line">  <span class="keyword">private</span> String name;</span><br><span class="line">  <span class="meta">@NotNull(message=&quot;age不能为空&quot;, groups = &#123;InsertGroup.class, UpdateGroup.class&#125;)</span></span><br><span class="line">  <span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-
-<p>然后在Controller接口方法上制定验证的分组规则</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserController</span>&#123;</span><br><span class="line">  <span class="keyword">public</span> R <span class="title function_">create</span><span class="params">(<span class="meta">@RequestBody</span> <span class="meta">@Validated(ValidGroup.InsertGroup.class)</span> UserReq userReq)</span>&#123;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> R <span class="title function_">edit</span><span class="params">(<span class="meta">@RequestBody</span> <span class="meta">@Validated(ValidGroup.UpdateGroup.class)</span> UserReq userReq)</span>&#123;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-
-<p>这样就实现参数的优雅校验了。</p>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>Spring</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>spring</tag>
       </tags>
   </entry>
   <entry>
