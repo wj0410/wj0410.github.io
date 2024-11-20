@@ -135,6 +135,18 @@
       </tags>
   </entry>
   <entry>
+    <title>PicGo使用GitHub图床</title>
+    <url>/2024/11/03/PicGo%E4%BD%BF%E7%94%A8GitHub%E5%9B%BE%E5%BA%8A/</url>
+    <content><![CDATA[<p>文档地址：<a class="link"   href="https://picgo.github.io/PicGo-Doc/zh/guide/config.html#github%E5%9B%BE%E5%BA%8A" >PicGo <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
+      <tags>
+        <tag>其他</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Mysql学习笔记</title>
     <url>/2021/11/04/Mysql%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h1 id="一、索引的概述"><a href="#一、索引的概述" class="headerlink" title="一、索引的概述"></a>一、索引的概述</h1><h2 id="1-为什么使用索引"><a href="#1-为什么使用索引" class="headerlink" title="1.为什么使用索引"></a>1.为什么使用索引</h2><p>在海量数据中进行查询某条记录的场景是经常发生的，如何提升查询性能，就跟要查询的数据字段是否有索引有关系。如果字段加了索引，那么查询的性能就会非常快！</p>
@@ -786,18 +798,6 @@
       </tags>
   </entry>
   <entry>
-    <title>PicGo使用GitHub图床</title>
-    <url>/2024/11/03/PicGo%E4%BD%BF%E7%94%A8GitHub%E5%9B%BE%E5%BA%8A/</url>
-    <content><![CDATA[<p>文档地址：<a class="link"   href="https://picgo.github.io/PicGo-Doc/zh/guide/config.html#github%E5%9B%BE%E5%BA%8A" >PicGo <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-]]></content>
-      <categories>
-        <category>其他</category>
-      </categories>
-      <tags>
-        <tag>其他</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Spring validation 分组校验用法</title>
     <url>/2024/11/19/Spring%20validation%20%E5%88%86%E7%BB%84%E6%A0%A1%E9%AA%8C%E7%94%A8%E6%B3%95/</url>
     <content><![CDATA[<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>在使用 <code>Java Bean Validation</code> 进行参数校验的时候，很多场景下的一个Req实体都是同时满足多个业务，但是可能在不同的业务场景下，参数校验有细微的差别。例如在新增用户和编辑用户的场景下，UserReq实体相同，但是编辑的时候用户ID是必填的。如果想要新增用户和编辑用户共用一个UserReq实体，就只能在id属性上去掉@NotNull注解，在编辑方法上手动判断，这样实际上比较麻烦，也不够优雅。</p>
@@ -967,7 +967,7 @@
 <p>访问路径相关设置</p>
 <div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># URL</span></span><br><span class="line"><span class="comment">## Set your site url here. For example, if you use GitHub Page, set url as &#x27;https://username.github.io/project&#x27;</span></span><br><span class="line"><span class="attr">url:</span> <span class="string">http://example.com</span></span><br><span class="line"><span class="attr">permalink:</span> <span class="string">:year/:month/:day/:title/</span></span><br><span class="line"><span class="attr">permalink_defaults:</span></span><br><span class="line"><span class="attr">pretty_urls:</span></span><br><span class="line">  <span class="attr">trailing_index:</span> <span class="literal">true</span> <span class="comment"># Set to false to remove trailing &#x27;index.html&#x27; from permalinks</span></span><br><span class="line">  <span class="attr">trailing_html:</span> <span class="literal">true</span> <span class="comment"># Set to false to remove trailing &#x27;.html&#x27; from permalinks</span></span><br></pre></td></tr></table></figure></div>
 
-<p>原主题太简陋了，我从官网主题地址：<a class="link"   href="https://xie.infoq.cn/link?target=https://hexo.io/themes/" >https://hexo.io/themes/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>中下载了<code>Redefine</code>主题，所以我们需要将配置中的主题改为<code>redefine</code>，大家也可以选择其他主题。</p>
+<p>原主题太简陋了，我从官网主题地址：<a class="link"   href="https://hexo.io/themes/" >https://hexo.io/themes/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>中下载了<code>Redefine</code>主题，所以我们需要将配置中的主题改为<code>redefine</code>，大家也可以选择其他主题。</p>
 <div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Extensions</span></span><br><span class="line"><span class="comment">## Plugins: https://hexo.io/plugins/</span></span><br><span class="line"><span class="comment">## Themes: https://hexo.io/themes/</span></span><br><span class="line"><span class="attr">theme:</span> <span class="string">redefine</span></span><br></pre></td></tr></table></figure></div>
 
 <h4 id="Redefine主题使用文档"><a href="#Redefine主题使用文档" class="headerlink" title="Redefine主题使用文档"></a><a class="link"   href="https://redefine-docs.ohevan.com/getting-started" >Redefine主题使用文档 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></h4><blockquote>
@@ -982,14 +982,14 @@
 
 <p>再输入<code>hexo vesion</code>查看当前版本，发现版本已经更新成功了。</p>
 </blockquote>
-<h4 id="将-Hexo-博客部署到-GitHub"><a href="#将-Hexo-博客部署到-GitHub" class="headerlink" title="将 Hexo 博客部署到 GitHub"></a>将 Hexo 博客部署到 GitHub</h4><p>首先我们先需要新建在 GitHub 上新建一个项目：<a class="link"   href="https://xie.infoq.cn/link?target=https://github.com/new" >https://github.com/new <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，项目名称格式需要注意，必须是<code>用户名.github.io</code>，如下图所示：</p>
+<h4 id="将-Hexo-博客部署到-GitHub"><a href="#将-Hexo-博客部署到-GitHub" class="headerlink" title="将 Hexo 博客部署到 GitHub"></a>将 Hexo 博客部署到 GitHub</h4><p>首先我们先需要新建在 GitHub 上新建一个项目：<a class="link"   href="https://github.com/new" >https://github.com/new <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，项目名称格式需要注意，必须是<code>用户名.github.io</code>，如下图所示：</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
                      data-src="https://raw.githubusercontent.com/wj0410/pic-bed/master/202411040157011.png"
                      
                 ></p>
-<p>同时我们需要配置下 SSH 密钥，具体配置方法可以查看：<a class="link"   href="https://xie.infoq.cn/link?target=https://mp.weixin.qq.com/s/kRjdSH-o8xULo8iiUyyhgw" >mac 如何快速生成SSH key，配置github SSH公钥连接(解决git push 413问题 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>同时我们需要配置下 SSH 密钥，具体配置方法可以查看：<a class="link"   href="https://mp.weixin.qq.com/s/kRjdSH-o8xULo8iiUyyhgw" >mac 如何快速生成SSH key，配置github SSH公钥连接(解决git push 413问题 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 <p>接着我们要修改下配置文件<code>_config.yml</code>，下滑到最后，将部署信息改为：</p>
 <div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/one-command-deployment</span></span><br><span class="line"><span class="attr">deploy:</span>  </span><br><span class="line">	<span class="attr">type:</span> <span class="string">git</span>  </span><br><span class="line">	<span class="attr">repo:</span> <span class="string">git@github.com:你的用户名/你的用户名.github.io.git</span>  </span><br><span class="line">	<span class="attr">branch:</span> <span class="string">main</span></span><br></pre></td></tr></table></figure></div>
 
@@ -1025,8 +1025,8 @@
                      data-src="https://raw.githubusercontent.com/wj0410/pic-bed/master/202411040212042.png"
                      
                 ></p>
-<p>通过上面，我们已经得到了一个在线的、可以随时随地访问的个人博客，整个操作过程还是很简单的，麻烦的就是上传更新文章和部署项目了，每次部署都需要输入账号密码，另外由于 GitHub 服务器在国外，国内访问速度也很堪忧，不用担心，这个解决还比较简单，我们可以同时将项目部署到国内码云：<a class="link"   href="https://xie.infoq.cn/link?target=https://gitee.com/" >https://gitee.com/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>或者 Coding：<a class="link"   href="https://xie.infoq.cn/link?target=https://coding.net/" >https://coding.net/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，整个过程和将项目部署到 GitHub 差不多。</p>
-<h4 id="设置应用自己的域名"><a href="#设置应用自己的域名" class="headerlink" title="设置应用自己的域名"></a>设置应用自己的域名</h4><p>如果你有域名的话，还可以设置专属域名，比如我之前在<a class="link"   href="https://xie.infoq.cn/link?target=https://www.aliyun.com/minisite/goods?taskPkg=1111ydsrwb&pkgSid=588&recordId=952736&userCode=g49jjzzx" >阿里云买的域名点击查看 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，当然大家也可以买<a class="link"   href="https://xie.infoq.cn/link?target=https://curl.qcloud.com/jaJqULOo" >腾讯云的点击查看 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，国内比较靠谱的两个云服务器和域名服务公司了～</p>
+<p>通过上面，我们已经得到了一个在线的、可以随时随地访问的个人博客，整个操作过程还是很简单的，麻烦的就是上传更新文章和部署项目了，每次部署都需要输入账号密码，另外由于 GitHub 服务器在国外，国内访问速度也很堪忧，不用担心，这个解决还比较简单，我们可以同时将项目部署到国内码云：<a class="link"   href="https://gitee.com/" >https://gitee.com/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>或者 Coding：<a class="link"   href="https://coding.net/" >https://coding.net/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，整个过程和将项目部署到 GitHub 差不多。</p>
+<h4 id="设置应用自己的域名"><a href="#设置应用自己的域名" class="headerlink" title="设置应用自己的域名"></a>设置应用自己的域名</h4><p>如果你有域名的话，还可以设置专属域名，比如我之前在<a class="link"   href="https://www.aliyun.com/minisite/goods?taskPkg=1111ydsrwb&pkgSid=588&recordId=952736&userCode=g49jjzzx" >阿里云买的域名点击查看 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，当然大家也可以买<a class="link"   href="https://cloud.tencent.com/act" >腾讯云的点击查看 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，国内比较靠谱的两个云服务器和域名服务公司了～</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
