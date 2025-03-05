@@ -123,19 +123,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Typora for Mac 免激活版</title>
-    <url>/2024/11/03/Mac%E5%AE%89%E8%A3%85%E6%BF%80%E6%B4%BBTypora/</url>
-    <content><![CDATA[<p>链接: <a class="link"   href="https://pan.baidu.com/s/1gynKmIZ3EWOwMJ2RPZeh3g?pwd=fxxi" >https://pan.baidu.com/s/1gynKmIZ3EWOwMJ2RPZeh3g?pwd=fxxi <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> </p>
-<p>提取码: fxxi</p>
-]]></content>
-      <categories>
-        <category>其他</category>
-      </categories>
-      <tags>
-        <tag>其他</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>HttpSevletRequest Body信息不能被多次读取的问题</title>
     <url>/2024/12/18/HttpSevletRequest%20Body%E4%BF%A1%E6%81%AF%E4%B8%8D%E8%83%BD%E8%A2%AB%E5%A4%9A%E6%AC%A1%E8%AF%BB%E5%8F%96%E7%9A%84%E9%97%AE%E9%A2%98/</url>
     <content><![CDATA[<p>在 Java Web 开发中，HTTP 请求体是客户端向服务器发送数据的主要载体，例如表单提交、JSON 数据等。当服务器收到请求后，通常通过 <code>HttpServletRequest</code> 类获取请求体的内容。然而，HTTP 请求体通常只能被读取一次。这是因为请求体使用输入流（<code>InputStream</code>）进行读取，一旦读取完毕，流的位置就会到达流的末尾，无法再读取。因此，在开发中，如果不小心读取了请求体一次，后续的代码将无法访问请求体数据，从而导致数据丢失或者异常。</p>
@@ -169,6 +156,19 @@
       </tags>
   </entry>
   <entry>
+    <title>Typora for Mac 免激活版</title>
+    <url>/2024/11/03/Mac%E5%AE%89%E8%A3%85%E6%BF%80%E6%B4%BBTypora/</url>
+    <content><![CDATA[<p>链接: <a class="link"   href="https://pan.baidu.com/s/1gynKmIZ3EWOwMJ2RPZeh3g?pwd=fxxi" >https://pan.baidu.com/s/1gynKmIZ3EWOwMJ2RPZeh3g?pwd=fxxi <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> </p>
+<p>提取码: fxxi</p>
+]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
+      <tags>
+        <tag>其他</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>PicGo使用GitHub图床</title>
     <url>/2024/11/03/PicGo%E4%BD%BF%E7%94%A8GitHub%E5%9B%BE%E5%BA%8A/</url>
     <content><![CDATA[<p>文档地址：<a class="link"   href="https://picgo.github.io/PicGo-Doc/zh/guide/config.html#github%E5%9B%BE%E5%BA%8A" >PicGo <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
@@ -178,6 +178,38 @@
       </categories>
       <tags>
         <tag>其他</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spring validation 分组校验用法</title>
+    <url>/2024/11/19/Spring%20validation%20%E5%88%86%E7%BB%84%E6%A0%A1%E9%AA%8C%E7%94%A8%E6%B3%95/</url>
+    <content><![CDATA[<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>在使用 <code>Java Bean Validation</code> 进行参数校验的时候，很多场景下的一个Req实体都是同时满足多个业务，但是可能在不同的业务场景下，参数校验有细微的差别。例如在新增用户和编辑用户的场景下，UserReq实体相同，但是编辑的时候用户ID是必填的。如果想要新增用户和编辑用户共用一个UserReq实体，就只能在id属性上去掉@NotNull注解，在编辑方法上手动判断，这样实际上比较麻烦，也不够优雅。</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserReq</span> &#123;</span><br><span class="line">  <span class="keyword">private</span> Long id;</span><br><span class="line">  <span class="meta">@NotEmpty(message=&quot;name 不能为空&quot;)</span></span><br><span class="line">  <span class="keyword">private</span> String name;</span><br><span class="line">  <span class="meta">@NotNull(message=&quot;age 不能为空&quot;)</span></span><br><span class="line">  <span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserController</span>&#123;</span><br><span class="line">  <span class="keyword">public</span> R <span class="title function_">create</span><span class="params">(<span class="meta">@RequestBody</span> <span class="meta">@Valid</span> UserReq userReq)</span>&#123;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> R <span class="title function_">edit</span><span class="params">(<span class="meta">@RequestBody</span> <span class="meta">@Valid</span> UserReq userReq)</span>&#123;</span><br><span class="line">    <span class="comment">// 手动判断id</span></span><br><span class="line">    <span class="keyword">if</span>(userReq.getId() == <span class="literal">null</span>)&#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">ServiceException</span>(...)</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>如果能给id字段上打一个记号，标识出id字段只需要编辑时校验，新增的时候忽视掉就好了。</p>
+<h4 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h4><p>实际上，@NotEmpty、@NotNull … 注解上有一个属性，叫做groups，用于指定一个验证分组。它允许你对同一个对象应用不同的验证规则，具体规则可以根据上下文的不同而有所不同。</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.CONSTRUCTOR, ElementType.PARAMETER, ElementType.TYPE_USE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Repeatable(NotNull.List.class)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Constraint(</span></span><br><span class="line"><span class="meta">    validatedBy = &#123;&#125;</span></span><br><span class="line"><span class="meta">)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> NotNull &#123;</span><br><span class="line">    String <span class="title function_">message</span><span class="params">()</span> <span class="keyword">default</span> <span class="string">&quot;&#123;javax.validation.constraints.NotNull.message&#125;&quot;</span>;</span><br><span class="line"></span><br><span class="line">    Class&lt;?&gt;[] groups() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    Class&lt;? <span class="keyword">extends</span> <span class="title class_">Payload</span>&gt;[] payload() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Target(&#123;ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.CONSTRUCTOR, ElementType.PARAMETER, ElementType.TYPE_USE&#125;)</span></span><br><span class="line">    <span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line">    <span class="meta">@Documented</span></span><br><span class="line">    <span class="keyword">public</span> <span class="meta">@interface</span> List &#123;</span><br><span class="line">        NotNull[] value();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>于是我们可以定义不同的验证分组接口，用于标识不同的验证场景。例如：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">ValidGroup</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">interface</span> <span class="title class_">InsertGroup</span> &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">interface</span> <span class="title class_">UpdateGroup</span> &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">interface</span> <span class="title class_">DeleteGroup</span> &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>然后在Req实体的属性上标注出场景</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserReq</span> &#123;</span><br><span class="line">  <span class="meta">@NotNull(message=&quot;id不能为空&quot;, groups = &#123;UpdateGroup.class&#125;)</span></span><br><span class="line">  <span class="keyword">private</span> Long id;</span><br><span class="line">  <span class="meta">@NotEmpty(message=&quot;name不能为空&quot;, groups = &#123;InsertGroup.class, UpdateGroup.class&#125;)</span></span><br><span class="line">  <span class="keyword">private</span> String name;</span><br><span class="line">  <span class="meta">@NotNull(message=&quot;age不能为空&quot;, groups = &#123;InsertGroup.class, UpdateGroup.class&#125;)</span></span><br><span class="line">  <span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>然后在Controller接口方法上制定验证的分组规则</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserController</span>&#123;</span><br><span class="line">  <span class="keyword">public</span> R <span class="title function_">create</span><span class="params">(<span class="meta">@RequestBody</span> <span class="meta">@Validated(ValidGroup.InsertGroup.class)</span> UserReq userReq)</span>&#123;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> R <span class="title function_">edit</span><span class="params">(<span class="meta">@RequestBody</span> <span class="meta">@Validated(ValidGroup.UpdateGroup.class)</span> UserReq userReq)</span>&#123;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>这样就实现参数的优雅校验了。</p>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>Spring</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>spring</tag>
       </tags>
   </entry>
   <entry>
@@ -225,6 +257,74 @@
       <tags>
         <tag>java</tag>
         <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>从一次生产事故中提升编码素养</title>
+    <url>/2024/12/13/%E4%BB%8E%E4%B8%80%E6%AC%A1%E7%94%9F%E4%BA%A7%E4%BA%8B%E6%95%85%E4%B8%AD%E6%8F%90%E5%8D%87%E7%BC%96%E7%A0%81%E7%B4%A0%E5%85%BB/</url>
+    <content><![CDATA[<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>最近刚进项目组，正赶上项目组在总结生产事故，询问得知在一次双11上线过程中，由于新需求与现有接口入参相似度较高，考虑复用现有接口开发，最后上线完成后进行首单验证，触发故障，影响了线上业务。</p>
+<h4 id="故障代码分析"><a href="#故障代码分析" class="headerlink" title="故障代码分析"></a>故障代码分析</h4><div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> BaseResp&lt;Void&gt; <span class="title function_">xxxx</span><span class="params">(<span class="meta">@RequestBody</span> xxxx req)</span> &#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">xxx</span> <span class="operator">=</span> req.getxxx();</span><br><span class="line">    <span class="type">String</span> <span class="variable">userName</span> <span class="operator">=</span> req.getxxx();</span><br><span class="line">    <span class="type">String</span> <span class="variable">xxx</span> <span class="operator">=</span> req.getxxx();</span><br><span class="line">    <span class="type">String</span> <span class="variable">xxx</span> <span class="operator">=</span> req.getxxx();</span><br><span class="line">    <span class="type">String</span> <span class="variable">uid</span> <span class="operator">=</span> req.getxxx();</span><br><span class="line">    <span class="comment">// 根据userName去查uid 开卡新工卡数据库是否存在uid相同且是待开卡的数据，如果存在就走新工卡开卡流程，否则走老工卡开卡流程</span></span><br><span class="line">    <span class="type">Boolean</span> <span class="variable">isUsingNew</span> <span class="operator">=</span> getUsingNew(uid, userName);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (isUsingNew) &#123;</span><br><span class="line">            openNewCard(uid, userName, xxx, xxx);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            openOldCard(req);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e.getMessage());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//修改状态为已领卡</span></span><br><span class="line">    <span class="keyword">return</span> BaseResp.success(<span class="string">&quot;修改状态成功&quot;</span>, <span class="literal">null</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>大家可以分析一下这段代码，细心的朋友很快便可以发现，在判断走新工卡开卡流程还是走老工卡开卡流程中，核心的参数为<strong>uid</strong>和<strong>userName</strong>，但是这两个参数都是通过前端传递的，我们都知道对于前端传递的参数，一定是不可信的，后端一定要做校验，特别还是这种会影响业务流转的参数。</p>
+<h4 id="引发的后果"><a href="#引发的后果" class="headerlink" title="引发的后果"></a>引发的后果</h4><p>最终，因为没有对参数进行校验，后续代码逻辑还有通用的查询还有删除逻辑，由于调用的通用方法，uid为空没有做条件拼接，导致大量数据被删除，引发灾难后果。开发团队连续3天没有休息，才完成对数据的恢复，上线时间也推迟了3周。</p>
+<h4 id="反思"><a href="#反思" class="headerlink" title="反思"></a>反思</h4><p>对于这次的生产事故，表面上是对参数校验的疏忽，本质上我认为是编码素养的问题。方法复用的确能够显著减少代码冗余，提高代码的可维护性和可读性，但如果方法复用不当，尤其是在错误的地方复用，可能会引发一些问题，甚至导致程序的bug或者逻辑错误。</p>
+<ul>
+<li><p><strong>接口设计</strong></p>
+<ul>
+<li><p>接口单一职责原则</p>
+<p>假设有一个方法用于计算价格，后来在另一个场景中复用，结果导致了错误。</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 原方法：计算商品价格</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PriceCalculator</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">double</span> <span class="title function_">calculatePrice</span><span class="params">(Order order)</span> &#123;</span><br><span class="line">        <span class="type">double</span> <span class="variable">price</span> <span class="operator">=</span> order.getBasePrice();</span><br><span class="line">        <span class="keyword">if</span> (order.isMember()) &#123;</span><br><span class="line">            price *= <span class="number">0.9</span>; <span class="comment">// 会员折扣</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> price;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 错误复用：计算运费时复用价格计算方法</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ShippingCalculator</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">double</span> <span class="title function_">calculateShipping</span><span class="params">(Order order)</span> &#123;</span><br><span class="line">        <span class="type">double</span> <span class="variable">price</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PriceCalculator</span>().calculatePrice(order);</span><br><span class="line">        <span class="keyword">if</span> (order.getWeight() &gt; <span class="number">10</span>) &#123;</span><br><span class="line">            price += <span class="number">20</span>; <span class="comment">// 加运费</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> price;  <span class="comment">// 错误：将价格计算和运费计算混淆了</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>在这个例子中，<code>calculatePrice</code> 方法是专门用来计算商品价格的，但是在 <code>ShippingCalculator</code> 中错误地复用了 <code>calculatePrice</code> 方法，导致运费的计算与价格计算混在一起。这违背了单一职责原则，导致逻辑混乱。</p>
+<p><strong>正确的复用例子</strong>：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 原方法：计算商品价格</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PriceCalculator</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">double</span> <span class="title function_">calculatePrice</span><span class="params">(Order order)</span> &#123;</span><br><span class="line">        <span class="type">double</span> <span class="variable">price</span> <span class="operator">=</span> order.getBasePrice();</span><br><span class="line">        <span class="keyword">if</span> (order.isMember()) &#123;</span><br><span class="line">            price *= <span class="number">0.9</span>; <span class="comment">// 会员折扣</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> price;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 重新设计：正确分开运费计算和价格计算</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ShippingCalculator</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">double</span> <span class="title function_">calculateShipping</span><span class="params">(Order order)</span> &#123;</span><br><span class="line">        <span class="type">double</span> <span class="variable">shippingCost</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (order.getWeight() &gt; <span class="number">10</span>) &#123;</span><br><span class="line">            shippingCost = <span class="number">20</span>; <span class="comment">// 加运费</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> shippingCost;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">OrderService</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">double</span> <span class="title function_">calculateTotal</span><span class="params">(Order order)</span> &#123;</span><br><span class="line">        <span class="type">double</span> <span class="variable">price</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PriceCalculator</span>().calculatePrice(order);</span><br><span class="line">        <span class="type">double</span> <span class="variable">shipping</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ShippingCalculator</span>().calculateShipping(order);</span><br><span class="line">        <span class="keyword">return</span> price + shipping; <span class="comment">// 正确的复用</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>最少入参&#x2F;响应暴露原则</p>
+<p>最少入参暴露原则的目的是<strong>减少接口暴露的参数数量</strong>，从而降低接口的复杂度，提高系统的安全性、可维护性和可扩展性。</p>
+<p>最少响应暴露原则的目的是<strong>尽量减少接口返回的响应内容</strong>，确保返回的数据仅包含调用者所需要的信息，从而提高数据传输效率，并减少暴露不必要的敏感数据。</p>
+</li>
+<li><p>对于入参做必要的参数校验</p>
+</li>
+</ul>
+</li>
+<li><p><strong>核心（通用）接口设计</strong></p>
+<ul>
+<li>核心能力&#x2F;方法有必要参数校验</li>
+<li>方法定义应该有明确的入参和响应</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>记一次@NotEmpty失效问题</title>
+    <url>/2024/11/13/%E8%AE%B0%E4%B8%80%E6%AC%A1@NotEmpty%E5%A4%B1%E6%95%88%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<p>最近在接手一个新项目中，使用@NotEmpty注解无效，但是@NotNull注解却可以使用，百思不得其解，网上也查了一些资料，说springboot版本问题，让加<code>spring-boot-starter-validation</code>依赖，但是加了也没效果，Controller上加了@Validated注解，方法上也加了@Valid注解，都没效果。最后发现是因为<strong>早期的<code>Hibernate Validator</code>版本可能对@NotEmpty不支持</strong>，项目中正好也单独引入了<code>Hibernate Validator</code>，删除掉依赖后，使用<code>spring-boot-starter-validation</code>的依赖就好了。</p>
+<blockquote>
+<p>spring-boot-starter-validation 和Hibernate Validator的关系</p>
+<p><code>spring-boot-starter-validation</code> 是 Spring Boot 的一个模块，它提供了数据验证的功能，而 Hibernate Validator 是数据验证的一个流行实现。</p>
+<p>Spring Boot Starter Validation 模块依赖于 Hibernate Validator，并提供了一些方便的自动配置。Hibernate Validator 提供了基于 Bean 校验的 API，它支持 JSR-303 和 JSR-380 注解，这些注解可以被用来对 Java Beans 进行数据校验。</p>
+<p>关系简单来说就是：</p>
+<ul>
+<li>Spring Boot Starter Validation 依赖于 Hibernate Validator。</li>
+<li>Hibernate Validator 是一个数据校验的实现，提供了基于注解的数据校验方式。</li>
+<li>Spring Boot Starter Validation 提供了自动配置和启动所需要的依赖。</li>
+</ul>
+</blockquote>
+]]></content>
+      <categories>
+        <category>java</category>
+        <category>Spring</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>spring</tag>
       </tags>
   </entry>
   <entry>
@@ -879,49 +979,6 @@
       </tags>
   </entry>
   <entry>
-    <title>从一次生产事故中提升编码素养</title>
-    <url>/2024/12/13/%E4%BB%8E%E4%B8%80%E6%AC%A1%E7%94%9F%E4%BA%A7%E4%BA%8B%E6%95%85%E4%B8%AD%E6%8F%90%E5%8D%87%E7%BC%96%E7%A0%81%E7%B4%A0%E5%85%BB/</url>
-    <content><![CDATA[<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>最近刚进项目组，正赶上项目组在总结生产事故，询问得知在一次双11上线过程中，由于新需求与现有接口入参相似度较高，考虑复用现有接口开发，最后上线完成后进行首单验证，触发故障，影响了线上业务。</p>
-<h4 id="故障代码分析"><a href="#故障代码分析" class="headerlink" title="故障代码分析"></a>故障代码分析</h4><div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@PostMapping(&quot;/makeCard/setPrintedCardState&quot;)</span></span><br><span class="line">  <span class="meta">@ResponseBody</span></span><br><span class="line">  <span class="keyword">public</span> BaseResp&lt;Void&gt; <span class="title function_">setPrintedCardState</span><span class="params">(<span class="meta">@RequestBody</span> CardReissueMachineReq req)</span> &#123;</span><br><span class="line">      <span class="type">String</span> <span class="variable">employeeId</span> <span class="operator">=</span> req.getEmpNo();</span><br><span class="line">      <span class="type">String</span> <span class="variable">userName</span> <span class="operator">=</span> req.getUserName();</span><br><span class="line">      <span class="type">String</span> <span class="variable">cardNo</span> <span class="operator">=</span> req.getMediumPhysicsCode();</span><br><span class="line">      <span class="type">String</span> <span class="variable">encryptCard</span> <span class="operator">=</span> req.getMediumEncryptCode();</span><br><span class="line">      <span class="type">String</span> <span class="variable">uid</span> <span class="operator">=</span> req.getUid();</span><br><span class="line">      <span class="keyword">if</span> (StringUtils.isEmpty(cardNo)) &#123;</span><br><span class="line">          <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">BizException</span>(...);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (cardNo.length() != <span class="number">8</span>) &#123;</span><br><span class="line">          <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">BizException</span>(...);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (StringUtils.isEmpty(encryptCard)) &#123;</span><br><span class="line">          <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">BizException</span>(...);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">// 根据userName去查uid 开卡新工卡数据库是否存在uid相同且是待开卡的数据，如果存在就走新工卡开卡流程，否则走老工卡开卡流程</span></span><br><span class="line">      <span class="type">Boolean</span> <span class="variable">isUsingNew</span> <span class="operator">=</span> getUsingNew(uid, userName);</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">          <span class="keyword">if</span> (isUsingNew) &#123;</span><br><span class="line">              openNewCard(uid, userName, cardNo, encryptCard);</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">              openOldCard(req);</span><br><span class="line">          &#125;</span><br><span class="line">      &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">          <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e.getMessage());</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">//修改状态为已领卡</span></span><br><span class="line">      <span class="keyword">return</span> BaseResp.success(<span class="string">&quot;修改状态成功&quot;</span>, <span class="literal">null</span>);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></div>
-
-<p>大家可以分析一下这段代码，细心的朋友很快便可以发现，在判断走新工卡开卡流程还是走老工卡开卡流程中，核心的参数为<strong>uid</strong>和<strong>userName</strong>，但是这两个参数都是通过前端传递的，我们都知道对于前端传递的参数，一定是不可信的，后端一定要做校验，特别还是这种会影响业务流转的参数。</p>
-<h4 id="引发的后果"><a href="#引发的后果" class="headerlink" title="引发的后果"></a>引发的后果</h4><p>最终，因为没有对参数进行校验，后续代码逻辑还有通用的查询还有删除逻辑，由于调用的通用方法，uid为空没有做条件拼接，导致大量数据被删除，引发灾难后果。开发团队连续3天没有休息，才完成对数据的恢复，上线时间也推迟了3周。</p>
-<h4 id="反思"><a href="#反思" class="headerlink" title="反思"></a>反思</h4><p>对于这次的生产事故，表面上是对参数校验的疏忽，本质上我认为是编码素养的问题。方法复用的确能够显著减少代码冗余，提高代码的可维护性和可读性，但如果方法复用不当，尤其是在错误的地方复用，可能会引发一些问题，甚至导致程序的bug或者逻辑错误。</p>
-<ul>
-<li><p><strong>接口设计</strong></p>
-<ul>
-<li><p>接口单一职责原则</p>
-<p>假设有一个方法用于计算价格，后来在另一个场景中复用，结果导致了错误。</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 原方法：计算商品价格</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PriceCalculator</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">double</span> <span class="title function_">calculatePrice</span><span class="params">(Order order)</span> &#123;</span><br><span class="line">        <span class="type">double</span> <span class="variable">price</span> <span class="operator">=</span> order.getBasePrice();</span><br><span class="line">        <span class="keyword">if</span> (order.isMember()) &#123;</span><br><span class="line">            price *= <span class="number">0.9</span>; <span class="comment">// 会员折扣</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> price;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 错误复用：计算运费时复用价格计算方法</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ShippingCalculator</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">double</span> <span class="title function_">calculateShipping</span><span class="params">(Order order)</span> &#123;</span><br><span class="line">        <span class="type">double</span> <span class="variable">price</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PriceCalculator</span>().calculatePrice(order);</span><br><span class="line">        <span class="keyword">if</span> (order.getWeight() &gt; <span class="number">10</span>) &#123;</span><br><span class="line">            price += <span class="number">20</span>; <span class="comment">// 加运费</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> price;  <span class="comment">// 错误：将价格计算和运费计算混淆了</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-
-<p>在这个例子中，<code>calculatePrice</code> 方法是专门用来计算商品价格的，但是在 <code>ShippingCalculator</code> 中错误地复用了 <code>calculatePrice</code> 方法，导致运费的计算与价格计算混在一起。这违背了单一职责原则，导致逻辑混乱。</p>
-<p><strong>正确的复用例子</strong>：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 原方法：计算商品价格</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PriceCalculator</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">double</span> <span class="title function_">calculatePrice</span><span class="params">(Order order)</span> &#123;</span><br><span class="line">        <span class="type">double</span> <span class="variable">price</span> <span class="operator">=</span> order.getBasePrice();</span><br><span class="line">        <span class="keyword">if</span> (order.isMember()) &#123;</span><br><span class="line">            price *= <span class="number">0.9</span>; <span class="comment">// 会员折扣</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> price;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 重新设计：正确分开运费计算和价格计算</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ShippingCalculator</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">double</span> <span class="title function_">calculateShipping</span><span class="params">(Order order)</span> &#123;</span><br><span class="line">        <span class="type">double</span> <span class="variable">shippingCost</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (order.getWeight() &gt; <span class="number">10</span>) &#123;</span><br><span class="line">            shippingCost = <span class="number">20</span>; <span class="comment">// 加运费</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> shippingCost;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">OrderService</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">double</span> <span class="title function_">calculateTotal</span><span class="params">(Order order)</span> &#123;</span><br><span class="line">        <span class="type">double</span> <span class="variable">price</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PriceCalculator</span>().calculatePrice(order);</span><br><span class="line">        <span class="type">double</span> <span class="variable">shipping</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ShippingCalculator</span>().calculateShipping(order);</span><br><span class="line">        <span class="keyword">return</span> price + shipping; <span class="comment">// 正确的复用</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-</li>
-<li><p>最少入参&#x2F;响应暴露原则</p>
-<p>最少入参暴露原则的目的是<strong>减少接口暴露的参数数量</strong>，从而降低接口的复杂度，提高系统的安全性、可维护性和可扩展性。</p>
-<p>最少响应暴露原则的目的是<strong>尽量减少接口返回的响应内容</strong>，确保返回的数据仅包含调用者所需要的信息，从而提高数据传输效率，并减少暴露不必要的敏感数据。</p>
-</li>
-<li><p>对于入参做必要的参数校验</p>
-</li>
-</ul>
-</li>
-<li><p><strong>核心（通用）接口设计</strong></p>
-<ul>
-<li>核心能力&#x2F;方法有必要参数校验</li>
-<li>方法定义应该有明确的入参和响应</li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>java</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>利用Hexo搭建个人博客</title>
     <url>/2024/11/03/%E5%88%A9%E7%94%A8Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
     <content><![CDATA[<h4 id="预备工作"><a href="#预备工作" class="headerlink" title="预备工作"></a>预备工作</h4><p>首先安装 Node.js、npm、git工具。</p>
@@ -1114,63 +1171,6 @@
       </categories>
       <tags>
         <tag>其他</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>记一次@NotEmpty失效问题</title>
-    <url>/2024/11/13/%E8%AE%B0%E4%B8%80%E6%AC%A1@NotEmpty%E5%A4%B1%E6%95%88%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<p>最近在接手一个新项目中，使用@NotEmpty注解无效，但是@NotNull注解却可以使用，百思不得其解，网上也查了一些资料，说springboot版本问题，让加<code>spring-boot-starter-validation</code>依赖，但是加了也没效果，Controller上加了@Validated注解，方法上也加了@Valid注解，都没效果。最后发现是因为<strong>早期的<code>Hibernate Validator</code>版本可能对@NotEmpty不支持</strong>，项目中正好也单独引入了<code>Hibernate Validator</code>，删除掉依赖后，使用<code>spring-boot-starter-validation</code>的依赖就好了。</p>
-<blockquote>
-<p>spring-boot-starter-validation 和Hibernate Validator的关系</p>
-<p><code>spring-boot-starter-validation</code> 是 Spring Boot 的一个模块，它提供了数据验证的功能，而 Hibernate Validator 是数据验证的一个流行实现。</p>
-<p>Spring Boot Starter Validation 模块依赖于 Hibernate Validator，并提供了一些方便的自动配置。Hibernate Validator 提供了基于 Bean 校验的 API，它支持 JSR-303 和 JSR-380 注解，这些注解可以被用来对 Java Beans 进行数据校验。</p>
-<p>关系简单来说就是：</p>
-<ul>
-<li>Spring Boot Starter Validation 依赖于 Hibernate Validator。</li>
-<li>Hibernate Validator 是一个数据校验的实现，提供了基于注解的数据校验方式。</li>
-<li>Spring Boot Starter Validation 提供了自动配置和启动所需要的依赖。</li>
-</ul>
-</blockquote>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>Spring</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>spring</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Spring validation 分组校验用法</title>
-    <url>/2024/11/19/Spring%20validation%20%E5%88%86%E7%BB%84%E6%A0%A1%E9%AA%8C%E7%94%A8%E6%B3%95/</url>
-    <content><![CDATA[<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>在使用 <code>Java Bean Validation</code> 进行参数校验的时候，很多场景下的一个Req实体都是同时满足多个业务，但是可能在不同的业务场景下，参数校验有细微的差别。例如在新增用户和编辑用户的场景下，UserReq实体相同，但是编辑的时候用户ID是必填的。如果想要新增用户和编辑用户共用一个UserReq实体，就只能在id属性上去掉@NotNull注解，在编辑方法上手动判断，这样实际上比较麻烦，也不够优雅。</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserReq</span> &#123;</span><br><span class="line">  <span class="keyword">private</span> Long id;</span><br><span class="line">  <span class="meta">@NotEmpty(message=&quot;name 不能为空&quot;)</span></span><br><span class="line">  <span class="keyword">private</span> String name;</span><br><span class="line">  <span class="meta">@NotNull(message=&quot;age 不能为空&quot;)</span></span><br><span class="line">  <span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserController</span>&#123;</span><br><span class="line">  <span class="keyword">public</span> R <span class="title function_">create</span><span class="params">(<span class="meta">@RequestBody</span> <span class="meta">@Valid</span> UserReq userReq)</span>&#123;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> R <span class="title function_">edit</span><span class="params">(<span class="meta">@RequestBody</span> <span class="meta">@Valid</span> UserReq userReq)</span>&#123;</span><br><span class="line">    <span class="comment">// 手动判断id</span></span><br><span class="line">    <span class="keyword">if</span>(userReq.getId() == <span class="literal">null</span>)&#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">ServiceException</span>(...)</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-
-<p>如果能给id字段上打一个记号，标识出id字段只需要编辑时校验，新增的时候忽视掉就好了。</p>
-<h4 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h4><p>实际上，@NotEmpty、@NotNull … 注解上有一个属性，叫做groups，用于指定一个验证分组。它允许你对同一个对象应用不同的验证规则，具体规则可以根据上下文的不同而有所不同。</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.CONSTRUCTOR, ElementType.PARAMETER, ElementType.TYPE_USE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Repeatable(NotNull.List.class)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Constraint(</span></span><br><span class="line"><span class="meta">    validatedBy = &#123;&#125;</span></span><br><span class="line"><span class="meta">)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> NotNull &#123;</span><br><span class="line">    String <span class="title function_">message</span><span class="params">()</span> <span class="keyword">default</span> <span class="string">&quot;&#123;javax.validation.constraints.NotNull.message&#125;&quot;</span>;</span><br><span class="line"></span><br><span class="line">    Class&lt;?&gt;[] groups() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    Class&lt;? <span class="keyword">extends</span> <span class="title class_">Payload</span>&gt;[] payload() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Target(&#123;ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.CONSTRUCTOR, ElementType.PARAMETER, ElementType.TYPE_USE&#125;)</span></span><br><span class="line">    <span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line">    <span class="meta">@Documented</span></span><br><span class="line">    <span class="keyword">public</span> <span class="meta">@interface</span> List &#123;</span><br><span class="line">        NotNull[] value();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-
-<p>于是我们可以定义不同的验证分组接口，用于标识不同的验证场景。例如：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">ValidGroup</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">interface</span> <span class="title class_">InsertGroup</span> &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">interface</span> <span class="title class_">UpdateGroup</span> &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">interface</span> <span class="title class_">DeleteGroup</span> &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-
-<p>然后在Req实体的属性上标注出场景</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserReq</span> &#123;</span><br><span class="line">  <span class="meta">@NotNull(message=&quot;id不能为空&quot;, groups = &#123;UpdateGroup.class&#125;)</span></span><br><span class="line">  <span class="keyword">private</span> Long id;</span><br><span class="line">  <span class="meta">@NotEmpty(message=&quot;name不能为空&quot;, groups = &#123;InsertGroup.class, UpdateGroup.class&#125;)</span></span><br><span class="line">  <span class="keyword">private</span> String name;</span><br><span class="line">  <span class="meta">@NotNull(message=&quot;age不能为空&quot;, groups = &#123;InsertGroup.class, UpdateGroup.class&#125;)</span></span><br><span class="line">  <span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-
-<p>然后在Controller接口方法上制定验证的分组规则</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserController</span>&#123;</span><br><span class="line">  <span class="keyword">public</span> R <span class="title function_">create</span><span class="params">(<span class="meta">@RequestBody</span> <span class="meta">@Validated(ValidGroup.InsertGroup.class)</span> UserReq userReq)</span>&#123;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> R <span class="title function_">edit</span><span class="params">(<span class="meta">@RequestBody</span> <span class="meta">@Validated(ValidGroup.UpdateGroup.class)</span> UserReq userReq)</span>&#123;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-
-<p>这样就实现参数的优雅校验了。</p>
-]]></content>
-      <categories>
-        <category>java</category>
-        <category>Spring</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>spring</tag>
       </tags>
   </entry>
 </search>
